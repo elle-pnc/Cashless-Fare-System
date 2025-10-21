@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Finder</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="user-dashboard.html" class="nav-link">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Find E-Jeep</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-routes.html" class="nav-link active">
+                        <i class="fas fa-route"></i>
+                        <span>Routes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-history.html" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        <span>Trip History</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-profile.html" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search routes...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar" style="background: var(--color-purple);">MP</div>
+                        <div class="user-info">
+                            <h4>Maria Perez</h4>
+                            <p>User</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Available Routes</h1>
+                <p>Browse all e-jeep routes and schedules</p>
+            </div>
+
+            <!-- Routes Grid -->
+            <div style="display: grid; gap: 20px;">
+                <!-- Route Card -->
+                <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                        <div>
+                            <h3 style="color: var(--color-navy); margin-bottom: 5px;">Route 1</h3>
+                            <p style="font-size: 18px; font-weight: 600; color: var(--color-blue); margin: 0;">City Center ↔ Shopping Mall</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-green);">₱15</div>
+                            <div style="font-size: 13px; color: var(--color-gray);">Base Fare</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Active E-Jeeps</p>
+                            <p style="font-weight: 600; font-size: 16px;">5 units</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Operating Hours</p>
+                            <p style="font-weight: 600; font-size: 16px;">5:00 AM - 10:00 PM</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Average Wait Time</p>
+                            <p style="font-weight: 600; font-size: 16px;">5-8 minutes</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--color-light); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                        <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--color-navy);">Main Stops:</h4>
+                        <p style="font-size: 13px; color: var(--color-gray); margin: 0; line-height: 1.6;">
+                            City Center Terminal → Central Park → City Hall → Main Street → Victory Mall → Shopping Mall Terminal
+                        </p>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-map-marker-alt"></i> Track E-Jeeps on This Route
+                    </button>
+                </div>
+
+                <!-- Route Card -->
+                <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                        <div>
+                            <h3 style="color: var(--color-navy); margin-bottom: 5px;">Route 2</h3>
+                            <p style="font-size: 18px; font-weight: 600; color: var(--color-blue); margin: 0;">University ↔ Train Station</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-green);">₱15</div>
+                            <div style="font-size: 13px; color: var(--color-gray);">Base Fare</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Active E-Jeeps</p>
+                            <p style="font-weight: 600; font-size: 16px;">4 units</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Operating Hours</p>
+                            <p style="font-weight: 600; font-size: 16px;">5:30 AM - 9:30 PM</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Average Wait Time</p>
+                            <p style="font-weight: 600; font-size: 16px;">6-10 minutes</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--color-light); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                        <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--color-navy);">Main Stops:</h4>
+                        <p style="font-size: 13px; color: var(--color-gray); margin: 0; line-height: 1.6;">
+                            University Gate → Student Center → Library → Plaza → Metro Station → Train Station Terminal
+                        </p>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-map-marker-alt"></i> Track E-Jeeps on This Route
+                    </button>
+                </div>
+
+                <!-- Route Card -->
+                <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                        <div>
+                            <h3 style="color: var(--color-navy); margin-bottom: 5px;">Route 3</h3>
+                            <p style="font-size: 18px; font-weight: 600; color: var(--color-blue); margin: 0;">Public Market ↔ Town Plaza</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-green);">₱15</div>
+                            <div style="font-size: 13px; color: var(--color-gray);">Base Fare</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Active E-Jeeps</p>
+                            <p style="font-weight: 600; font-size: 16px;">3 units</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Operating Hours</p>
+                            <p style="font-weight: 600; font-size: 16px;">6:00 AM - 8:00 PM</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Average Wait Time</p>
+                            <p style="font-weight: 600; font-size: 16px;">8-12 minutes</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--color-light); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                        <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--color-navy);">Main Stops:</h4>
+                        <p style="font-size: 13px; color: var(--color-gray); margin: 0; line-height: 1.6;">
+                            Public Market → Wet Market → Grocery Plaza → Church → Municipal Hall → Town Plaza
+                        </p>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-map-marker-alt"></i> Track E-Jeeps on This Route
+                    </button>
+                </div>
+
+                <!-- Route Card -->
+                <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                        <div>
+                            <h3 style="color: var(--color-navy); margin-bottom: 5px;">Route 4</h3>
+                            <p style="font-size: 18px; font-weight: 600; color: var(--color-blue); margin: 0;">Hospital ↔ School District</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-green);">₱15</div>
+                            <div style="font-size: 13px; color: var(--color-gray);">Base Fare</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Active E-Jeeps</p>
+                            <p style="font-weight: 600; font-size: 16px;">3 units</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Operating Hours</p>
+                            <p style="font-weight: 600; font-size: 16px;">5:00 AM - 7:00 PM</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Average Wait Time</p>
+                            <p style="font-weight: 600; font-size: 16px;">7-10 minutes</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--color-light); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                        <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--color-navy);">Main Stops:</h4>
+                        <p style="font-size: 13px; color: var(--color-gray); margin: 0; line-height: 1.6;">
+                            General Hospital → Medical Center → Elementary School → High School → Academy → School District Hub
+                        </p>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-map-marker-alt"></i> Track E-Jeeps on This Route
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

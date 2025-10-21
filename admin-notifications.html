@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-jeeps.html" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>E-Jeep Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-drivers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-transactions.html" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-notifications.html" class="nav-link active">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-chat.html" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        <span>Group Chat</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search notifications...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <h4>Admin User</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Notifications</h1>
+                <p>System alerts and important messages</p>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div style="display: flex; gap: 15px;">
+                        <button class="tab-btn active">All (12)</button>
+                        <button class="tab-btn">Unread (5)</button>
+                        <button class="tab-btn">Alerts (3)</button>
+                        <button class="tab-btn">Maintenance (2)</button>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-check-double"></i> Mark All Read
+                        </button>
+                        <button class="btn btn-success" id="sendNotificationBtn">
+                            <i class="fas fa-paper-plane"></i> Send Notification
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; gap: 15px;">
+                <!-- Notification Item -->
+                <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--color-red); cursor: pointer;" onclick="markAsRead(this)">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 15px; flex: 1;">
+                            <div style="width: 50px; height: 50px; background: rgba(231, 76, 60, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-red); font-size: 20px;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h4 style="margin-bottom: 5px; color: var(--color-navy);">Maintenance Due - ABC-1234</h4>
+                                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">E-Jeep ABC-1234 is due for maintenance. Last service was 30 days ago.</p>
+                                <small style="color: var(--color-gray); font-size: 12px;">
+                                    <i class="fas fa-clock"></i> 2 hours ago
+                                </small>
+                            </div>
+                        </div>
+                        <div style="width: 10px; height: 10px; background: var(--color-red); border-radius: 50%;"></div>
+                    </div>
+                </div>
+
+                <!-- Notification Item -->
+                <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--color-yellow); cursor: pointer;" onclick="markAsRead(this)">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 15px; flex: 1;">
+                            <div style="width: 50px; height: 50px; background: rgba(243, 156, 18, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-yellow); font-size: 20px;">
+                                <i class="fas fa-gas-pump"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h4 style="margin-bottom: 5px; color: var(--color-navy);">Low Fuel Alert - XYZ-5678</h4>
+                                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">Driver Maria Santos reported low fuel level. Please arrange refueling.</p>
+                                <small style="color: var(--color-gray); font-size: 12px;">
+                                    <i class="fas fa-clock"></i> 3 hours ago
+                                </small>
+                            </div>
+                        </div>
+                        <div style="width: 10px; height: 10px; background: var(--color-yellow); border-radius: 50%;"></div>
+                    </div>
+                </div>
+
+                <!-- Notification Item -->
+                <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--color-green); cursor: pointer; opacity: 0.7;" onclick="markAsRead(this)">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 15px; flex: 1;">
+                            <div style="width: 50px; height: 50px; background: rgba(39, 174, 96, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-green); font-size: 20px;">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h4 style="margin-bottom: 5px; color: var(--color-navy);">Daily Revenue Target Achieved</h4>
+                                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">Congratulations! Daily revenue target of ₱40,000 has been exceeded.</p>
+                                <small style="color: var(--color-gray); font-size: 12px;">
+                                    <i class="fas fa-clock"></i> 5 hours ago
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification Item -->
+                <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--color-blue); cursor: pointer;" onclick="markAsRead(this)">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 15px; flex: 1;">
+                            <div style="width: 50px; height: 50px; background: rgba(52, 152, 219, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-blue); font-size: 20px;">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h4 style="margin-bottom: 5px; color: var(--color-navy);">New Driver Registration</h4>
+                                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">Rosa Martinez has completed driver registration. Please review and approve.</p>
+                                <small style="color: var(--color-gray); font-size: 12px;">
+                                    <i class="fas fa-clock"></i> 1 day ago
+                                </small>
+                            </div>
+                        </div>
+                        <div style="width: 10px; height: 10px; background: var(--color-blue); border-radius: 50%;"></div>
+                    </div>
+                </div>
+
+                <!-- Notification Item -->
+                <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--color-teal); cursor: pointer; opacity: 0.7;" onclick="markAsRead(this)">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 15px; flex: 1;">
+                            <div style="width: 50px; height: 50px; background: rgba(26, 188, 156, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-teal); font-size: 20px;">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h4 style="margin-bottom: 5px; color: var(--color-navy);">Maintenance Completed - GHI-3456</h4>
+                                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">Oil change and tire rotation completed for E-Jeep GHI-3456. Total cost: ₱3,500</p>
+                                <small style="color: var(--color-gray); font-size: 12px;">
+                                    <i class="fas fa-clock"></i> 1 day ago
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification Item -->
+                <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--color-purple); cursor: pointer; opacity: 0.7;" onclick="markAsRead(this)">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="display: flex; gap: 15px; flex: 1;">
+                            <div style="width: 50px; height: 50px; background: rgba(155, 89, 182, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-purple); font-size: 20px;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h4 style="margin-bottom: 5px; color: var(--color-navy);">Weekly Report Available</h4>
+                                <p style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">Your weekly performance report is now available for download.</p>
+                                <small style="color: var(--color-gray); font-size: 12px;">
+                                    <i class="fas fa-clock"></i> 2 days ago
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Send Notification Modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Send Notification</h3>
+                <button class="close-modal" onclick="closeNotificationModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="notificationForm">
+                <div class="form-group">
+                    <label>Send To</label>
+                    <select required>
+                        <option value="">Select Recipients</option>
+                        <option value="all_drivers">All Drivers</option>
+                        <option value="all_users">All Users</option>
+                        <option value="specific">Specific Driver</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notification Type</label>
+                    <select required>
+                        <option value="info">Information</option>
+                        <option value="alert">Alert</option>
+                        <option value="warning">Warning</option>
+                        <option value="maintenance">Maintenance</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" placeholder="Notification title" required>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea placeholder="Enter notification message..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        <span>Send Email Notification</span>
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        <span>Send Push Notification</span>
+                    </label>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-paper-plane"></i> Send Now
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeNotificationModal()" style="flex: 1;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function markAsRead(element) {
+            element.style.opacity = '0.7';
+            const badge = element.querySelector('div:last-child');
+            if (badge && badge.style.width === '10px') {
+                badge.remove();
+            }
+        }
+
+        function closeNotificationModal() {
+            document.getElementById('notificationModal').classList.remove('active');
+        }
+
+        document.getElementById('sendNotificationBtn').addEventListener('click', function() {
+            document.getElementById('notificationModal').classList.add('active');
+        });
+
+        document.getElementById('notificationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Notification sent successfully!');
+            closeNotificationModal();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Finder</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="user-dashboard.html" class="nav-link active">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Find E-Jeep</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-routes.html" class="nav-link">
+                        <i class="fas fa-route"></i>
+                        <span>Routes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-history.html" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        <span>Trip History</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-profile.html" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search routes...">
+                </div>
+                <div class="top-bar-actions">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-right: 15px;">
+                        <i class="fas fa-cloud-sun" style="color: var(--color-yellow); font-size: 20px;"></i>
+                        <div>
+                            <div style="font-size: 14px; font-weight: 600;">28°C</div>
+                            <div style="font-size: 11px; color: var(--color-gray);">Partly Cloudy</div>
+                        </div>
+                    </div>
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar" style="background: var(--color-purple);">MP</div>
+                        <div class="user-info">
+                            <h4>Maria Perez</h4>
+                            <p>User</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Find Your E-Jeep</h1>
+                <p>Track available e-jeeps in real-time</p>
+            </div>
+
+            <!-- Balance Card -->
+            <div style="background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-teal) 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-md); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <p style="font-size: 14px; opacity: 0.9; margin-bottom: 5px;">Your Balance</p>
+                        <h2 style="font-size: 42px; margin: 0; font-weight: 700;" id="userBalance">₱250.00</h2>
+                        <p style="font-size: 13px; opacity: 0.8; margin-top: 5px;">
+                            <i class="fas fa-info-circle"></i> Used for automatic fare payment
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-direction: column;">
+                        <button class="btn" style="background: white; color: var(--color-blue); padding: 15px 30px; font-weight: 600;" id="topUpBtn">
+                            <i class="fas fa-wallet"></i> Top Up Balance
+                        </button>
+                        <button class="btn" style="background: rgba(255,255,255,0.2); color: white; padding: 12px 30px; font-size: 14px; border: 2px solid rgba(255,255,255,0.3);" onclick="location.href='user-history.html'">
+                            <i class="fas fa-history"></i> View Transactions
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 50px; height: 50px; background: rgba(52, 152, 219, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--color-blue); font-size: 22px;">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0; font-size: 24px;">42</h3>
+                            <p style="margin: 5px 0 0 0; font-size: 13px; color: var(--color-gray);">Trips This Month</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 50px; height: 50px; background: rgba(243, 156, 18, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--color-yellow); font-size: 22px;">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0; font-size: 24px;">₱630</h3>
+                            <p style="margin: 5px 0 0 0; font-size: 13px; color: var(--color-gray);">Spent This Month</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 50px; height: 50px; background: rgba(39, 174, 96, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--color-green); font-size: 22px;">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0; font-size: 24px;">Route 1</h3>
+                            <p style="margin: 5px 0 0 0; font-size: 13px; color: var(--color-gray);">Most Used Route</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map View -->
+            <div class="map-container">
+                <div class="chart-header">
+                    <h3>Live E-Jeep Locations</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-primary" style="padding: 10px 20px; font-size: 14px;">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3 style="margin: 10px 0;">Real-Time E-Jeep Tracking</h3>
+                    <p>See where e-jeeps are right now on your route</p>
+                    <div style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: var(--color-green); border-radius: 50%;"></div>
+                            <span style="font-size: 13px;">Available (5)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: var(--color-yellow); border-radius: 50%;"></div>
+                            <span style="font-size: 13px;">Almost Full (3)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: var(--color-red); border-radius: 50%;"></div>
+                            <span style="font-size: 13px;">Full (1)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available E-Jeeps -->
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>Available E-Jeeps Nearby</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Routes</option>
+                            <option value="route1" selected>Route 1 (City Center - Mall)</option>
+                            <option value="route2">Route 2 (University - Station)</option>
+                            <option value="route3">Route 3 (Market - Plaza)</option>
+                            <option value="route4">Route 4 (Hospital - School)</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="padding: 20px; display: grid; gap: 15px;">
+                    <!-- E-Jeep Card -->
+                    <div style="border: 2px solid var(--color-light); border-radius: 15px; padding: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="width: 60px; height: 60px; background: var(--color-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 5px;">E-Jeep ABC-1234</h4>
+                                <p style="font-size: 13px; color: var(--color-gray); margin: 0;">Driver: Juan Dela Cruz</p>
+                                <p style="font-size: 13px; color: var(--color-gray); margin: 5px 0 0 0;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--color-blue);"></i> 
+                                    Currently at: Central Park (5 min away)
+                                </p>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-green); margin-bottom: 5px;">2/20</div>
+                            <div style="font-size: 12px; color: var(--color-gray);">Passengers</div>
+                            <span class="badge success" style="margin-top: 10px; display: inline-block;">Available</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--color-navy); margin-bottom: 5px;">₱15</div>
+                            <div style="font-size: 12px; color: var(--color-gray);">Fare</div>
+                        </div>
+                    </div>
+
+                    <!-- E-Jeep Card -->
+                    <div style="border: 2px solid var(--color-light); border-radius: 15px; padding: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="width: 60px; height: 60px; background: var(--color-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 5px;">E-Jeep GHI-3456</h4>
+                                <p style="font-size: 13px; color: var(--color-gray); margin: 0;">Driver: Ana Garcia</p>
+                                <p style="font-size: 13px; color: var(--color-gray); margin: 5px 0 0 0;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--color-blue);"></i> 
+                                    Currently at: City Hall (8 min away)
+                                </p>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-green); margin-bottom: 5px;">5/20</div>
+                            <div style="font-size: 12px; color: var(--color-gray);">Passengers</div>
+                            <span class="badge success" style="margin-top: 10px; display: inline-block;">Available</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--color-navy); margin-bottom: 5px;">₱15</div>
+                            <div style="font-size: 12px; color: var(--color-gray);">Fare</div>
+                        </div>
+                    </div>
+
+                    <!-- E-Jeep Card -->
+                    <div style="border: 2px solid var(--color-light); border-radius: 15px; padding: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="width: 60px; height: 60px; background: var(--color-yellow); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 5px;">E-Jeep MNO-2345</h4>
+                                <p style="font-size: 13px; color: var(--color-gray); margin: 0;">Driver: Rosa Martinez</p>
+                                <p style="font-size: 13px; color: var(--color-gray); margin: 5px 0 0 0;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--color-blue);"></i> 
+                                    Currently at: Main Street (12 min away)
+                                </p>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-yellow); margin-bottom: 5px;">16/20</div>
+                            <div style="font-size: 12px; color: var(--color-gray);">Passengers</div>
+                            <span class="badge warning" style="margin-top: 10px; display: inline-block;">Almost Full</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--color-navy); margin-bottom: 5px;">₱15</div>
+                            <div style="font-size: 12px; color: var(--color-gray);">Fare</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Top Up Modal -->
+    <div class="modal" id="topUpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Top Up Your Balance</h3>
+                <button class="close-modal" onclick="closeTopUpModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="padding: 20px 0;">
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <p style="color: var(--color-gray); margin-bottom: 10px;">Current Balance</p>
+                    <h2 style="font-size: 36px; color: var(--color-blue); margin: 0;">₱250.00</h2>
+                </div>
+                
+                <form id="topUpForm">
+                    <div class="form-group">
+                        <label>Select Amount</label>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px;">
+                            <button type="button" class="btn btn-secondary topup-amount" data-amount="50">₱50</button>
+                            <button type="button" class="btn btn-secondary topup-amount" data-amount="100">₱100</button>
+                            <button type="button" class="btn btn-secondary topup-amount" data-amount="200">₱200</button>
+                            <button type="button" class="btn btn-secondary topup-amount" data-amount="500">₱500</button>
+                            <button type="button" class="btn btn-secondary topup-amount" data-amount="1000">₱1,000</button>
+                            <button type="button" class="btn btn-secondary topup-amount" data-amount="2000">₱2,000</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Or Enter Custom Amount</label>
+                        <input type="number" id="customAmount" placeholder="Enter amount" min="10" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select required>
+                            <option value="">Select payment method</option>
+                            <option value="gcash">GCash</option>
+                            <option value="paymaya">PayMaya</option>
+                            <option value="credit_card">Credit/Debit Card</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <div style="background: var(--color-light); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: var(--color-gray); font-size: 14px;">Top-up Amount:</span>
+                            <strong id="topupAmount">₱0.00</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: var(--color-gray); font-size: 14px;">Processing Fee:</span>
+                            <strong id="processingFee">₱0.00</strong>
+                        </div>
+                        <div style="border-top: 2px solid var(--color-gray); padding-top: 8px; margin-top: 8px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>Total to Pay:</strong>
+                                <strong style="color: var(--color-blue); font-size: 18px;" id="totalAmount">₱0.00</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-check"></i> Proceed to Payment
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeTopUpModal()" style="flex: 1;">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let selectedAmount = 0;
+
+        // Top-up amount buttons
+        document.querySelectorAll('.topup-amount').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.topup-amount').forEach(b => {
+                    b.classList.remove('btn-primary');
+                    b.classList.add('btn-secondary');
+                });
+                this.classList.remove('btn-secondary');
+                this.classList.add('btn-primary');
+                
+                selectedAmount = parseInt(this.dataset.amount);
+                document.getElementById('customAmount').value = '';
+                updateTopupSummary(selectedAmount);
+            });
+        });
+
+        // Custom amount input
+        document.getElementById('customAmount').addEventListener('input', function() {
+            document.querySelectorAll('.topup-amount').forEach(b => {
+                b.classList.remove('btn-primary');
+                b.classList.add('btn-secondary');
+            });
+            selectedAmount = parseFloat(this.value) || 0;
+            updateTopupSummary(selectedAmount);
+        });
+
+        function updateTopupSummary(amount) {
+            const fee = amount * 0.02; // 2% processing fee
+            const total = amount + fee;
+            
+            document.getElementById('topupAmount').textContent = '₱' + amount.toFixed(2);
+            document.getElementById('processingFee').textContent = '₱' + fee.toFixed(2);
+            document.getElementById('totalAmount').textContent = '₱' + total.toFixed(2);
+        }
+
+        function closeTopUpModal() {
+            document.getElementById('topUpModal').classList.remove('active');
+            selectedAmount = 0;
+            document.getElementById('topUpForm').reset();
+            updateTopupSummary(0);
+            document.querySelectorAll('.topup-amount').forEach(b => {
+                b.classList.remove('btn-primary');
+                b.classList.add('btn-secondary');
+            });
+        }
+
+        document.getElementById('topUpBtn').addEventListener('click', function() {
+            document.getElementById('topUpModal').classList.add('active');
+        });
+
+        document.getElementById('topUpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (selectedAmount < 10) {
+                alert('Minimum top-up amount is ₱10');
+                return;
+            }
+            
+            // Simulate successful top-up
+            const currentBalance = 250;
+            const newBalance = currentBalance + selectedAmount;
+            document.getElementById('userBalance').textContent = '₱' + newBalance.toFixed(2);
+            
+            alert('Top-up successful! ₱' + selectedAmount.toFixed(2) + ' has been added to your balance.');
+            closeTopUpModal();
+        });
+    </script>
+</body>
+</html>
+

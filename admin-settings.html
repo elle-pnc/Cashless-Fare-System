@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-jeeps.html" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>E-Jeep Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-drivers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-transactions.html" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-notifications.html" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-chat.html" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        <span>Group Chat</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link active">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search settings...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <h4>Admin User</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Manage your account and security settings</p>
+            </div>
+
+            <!-- Profile Settings -->
+            <div class="table-container" style="margin-bottom: 30px;">
+                <div class="chart-header">
+                    <h3><i class="fas fa-user-circle"></i> Profile Information</h3>
+                </div>
+                <form style="padding: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="Admin User">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" value="admin@ejeep.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" value="+63 912 345 6789">
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <input type="text" value="Administrator" disabled>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="table-container" style="margin-bottom: 30px;">
+                <div class="chart-header">
+                    <h3><i class="fas fa-shield-alt"></i> Security Settings</h3>
+                </div>
+                <div style="padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: var(--color-light); border-radius: 10px; margin-bottom: 15px;">
+                        <div>
+                            <h4 style="margin-bottom: 5px;">Two-Step Verification</h4>
+                            <p style="font-size: 13px; color: var(--color-gray); margin: 0;">Add an extra layer of security to your account</p>
+                        </div>
+                        <label style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                            <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                            <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--color-green); transition: .4s; border-radius: 26px;"></span>
+                        </label>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: var(--color-light); border-radius: 10px; margin-bottom: 15px;">
+                        <div>
+                            <h4 style="margin-bottom: 5px;">Face Recognition</h4>
+                            <p style="font-size: 13px; color: var(--color-gray); margin: 0;">Use face recognition for login authentication</p>
+                        </div>
+                        <label style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                            <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                            <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--color-gray); transition: .4s; border-radius: 26px;"></span>
+                        </label>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: var(--color-light); border-radius: 10px; margin-bottom: 20px;">
+                        <div>
+                            <h4 style="margin-bottom: 5px;">Email Verification</h4>
+                            <p style="font-size: 13px; color: var(--color-gray); margin: 0;">Verify your email: admin@ejeep.com</p>
+                        </div>
+                        <span class="badge success">Verified</span>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        <i class="fas fa-key"></i> Change Password
+                    </button>
+                    <button class="btn btn-secondary" style="margin-left: 10px;">
+                        <i class="fas fa-envelope"></i> Update Backup Email
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notification Preferences -->
+            <div class="table-container" style="margin-bottom: 30px;">
+                <div class="chart-header">
+                    <h3><i class="fas fa-bell"></i> Notification Preferences</h3>
+                </div>
+                <div style="padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--color-light);">
+                        <div>
+                            <h4 style="margin-bottom: 5px; font-size: 14px;">Email Notifications</h4>
+                            <p style="font-size: 12px; color: var(--color-gray); margin: 0;">Receive notifications via email</p>
+                        </div>
+                        <input type="checkbox" checked>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--color-light);">
+                        <div>
+                            <h4 style="margin-bottom: 5px; font-size: 14px;">Push Notifications</h4>
+                            <p style="font-size: 12px; color: var(--color-gray); margin: 0;">Receive push notifications on your device</p>
+                        </div>
+                        <input type="checkbox" checked>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--color-light);">
+                        <div>
+                            <h4 style="margin-bottom: 5px; font-size: 14px;">Maintenance Alerts</h4>
+                            <p style="font-size: 12px; color: var(--color-gray); margin: 0;">Get notified when maintenance is due</p>
+                        </div>
+                        <input type="checkbox" checked>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px;">
+                        <div>
+                            <h4 style="margin-bottom: 5px; font-size: 14px;">Daily Reports</h4>
+                            <p style="font-size: 12px; color: var(--color-gray); margin: 0;">Receive daily performance reports</p>
+                        </div>
+                        <input type="checkbox" checked>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Settings -->
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3><i class="fas fa-cogs"></i> System Settings</h3>
+                </div>
+                <div style="padding: 20px;">
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <select>
+                            <option value="PHP" selected>Philippine Peso (₱)</option>
+                            <option value="USD">US Dollar ($)</option>
+                            <option value="EUR">Euro (€)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Timezone</label>
+                        <select>
+                            <option value="Asia/Manila" selected>Manila (UTC+8)</option>
+                            <option value="UTC">UTC</option>
+                            <option value="America/New_York">New York (UTC-5)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date Format</label>
+                        <select>
+                            <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                            <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Language</label>
+                        <select>
+                            <option value="en" selected>English</option>
+                            <option value="tl">Tagalog</option>
+                            <option value="es">Spanish</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
