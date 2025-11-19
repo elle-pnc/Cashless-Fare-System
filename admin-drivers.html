@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Management - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-jeeps.html" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>E-Jeep Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-drivers.html" class="nav-link active">
+                        <i class="fas fa-users"></i>
+                        <span>Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-transactions.html" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-notifications.html" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search drivers...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <h4>Admin User</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Driver Management</h1>
+                <p>Manage drivers, shifts, and assignments</p>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div style="display: flex; gap: 15px;">
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Status</option>
+                            <option value="active">On Shift</option>
+                            <option value="off">Off Shift</option>
+                            <option value="break">On Break</option>
+                        </select>
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Routes</option>
+                            <option value="route1">Route 1</option>
+                            <option value="route2">Route 2</option>
+                            <option value="route3">Route 3</option>
+                            <option value="route4">Route 4</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="addDriverBtn">
+                        <i class="fas fa-user-plus"></i> Add New Driver
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>25</h3>
+                        <p>Total Drivers</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>On Shift</p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>10</h3>
+                        <p>Off Shift</p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>On Break</p>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>Driver List</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Assigned E-Jeep</th>
+                            <th>Route</th>
+                            <th>Status</th>
+                            <th>Hours Today</th>
+                            <th>Revenue Today</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="user-avatar" style="width: 40px; height: 40px; font-size: 14px;">JD</div>
+                                    <strong>Juan Dela Cruz</strong>
+                                </div>
+                            </td>
+                            <td>+63 912 345 6789</td>
+                            <td>ABC-1234</td>
+                            <td>Route 1</td>
+                            <td><span class="badge success">On Shift</span></td>
+                            <td>6h 30m</td>
+                            <td>₱4,250</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editDriver('Juan Dela Cruz')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--color-blue);" onclick="viewShifts('Juan Dela Cruz')">
+                                        <i class="fas fa-clock"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteDriver('Juan Dela Cruz')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="user-avatar" style="width: 40px; height: 40px; font-size: 14px; background: var(--color-purple);">MS</div>
+                                    <strong>Maria Santos</strong>
+                                </div>
+                            </td>
+                            <td>+63 923 456 7890</td>
+                            <td>XYZ-5678</td>
+                            <td>Route 2</td>
+                            <td><span class="badge success">On Shift</span></td>
+                            <td>5h 45m</td>
+                            <td>₱3,890</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editDriver('Maria Santos')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--color-blue);" onclick="viewShifts('Maria Santos')">
+                                        <i class="fas fa-clock"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteDriver('Maria Santos')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="user-avatar" style="width: 40px; height: 40px; font-size: 14px; background: var(--color-green);">PR</div>
+                                    <strong>Pedro Reyes</strong>
+                                </div>
+                            </td>
+                            <td>+63 934 567 8901</td>
+                            <td>DEF-9012</td>
+                            <td>Route 3</td>
+                            <td><span class="badge warning">On Break</span></td>
+                            <td>4h 20m</td>
+                            <td>₱2,680</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editDriver('Pedro Reyes')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--color-blue);" onclick="viewShifts('Pedro Reyes')">
+                                        <i class="fas fa-clock"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteDriver('Pedro Reyes')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="user-avatar" style="width: 40px; height: 40px; font-size: 14px; background: var(--color-yellow);">AG</div>
+                                    <strong>Ana Garcia</strong>
+                                </div>
+                            </td>
+                            <td>+63 945 678 9012</td>
+                            <td>GHI-3456</td>
+                            <td>Route 1</td>
+                            <td><span class="badge">Off Shift</span></td>
+                            <td>0h 0m</td>
+                            <td>₱0</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editDriver('Ana Garcia')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--color-blue);" onclick="viewShifts('Ana Garcia')">
+                                        <i class="fas fa-clock"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteDriver('Ana Garcia')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="user-avatar" style="width: 40px; height: 40px; font-size: 14px; background: var(--color-teal);">CL</div>
+                                    <strong>Carlos Lopez</strong>
+                                </div>
+                            </td>
+                            <td>+63 956 789 0123</td>
+                            <td>JKL-7890</td>
+                            <td>Route 4</td>
+                            <td><span class="badge success">On Shift</span></td>
+                            <td>7h 15m</td>
+                            <td>₱5,120</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editDriver('Carlos Lopez')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(52, 152, 219, 0.1); color: var(--color-blue);" onclick="viewShifts('Carlos Lopez')">
+                                        <i class="fas fa-clock"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteDriver('Carlos Lopez')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Driver Modal -->
+    <div class="modal" id="driverModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Driver</h3>
+                <button class="close-modal" onclick="closeDriverModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="driverForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Juan Dela Cruz" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="juan@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="+63 912 345 6789" required>
+                </div>
+                <div class="form-group">
+                    <label>License Number</label>
+                    <input type="text" placeholder="N01-12-345678" required>
+                </div>
+                <div class="form-group">
+                    <label>Assign E-Jeep</label>
+                    <select required>
+                        <option value="">Select E-Jeep</option>
+                        <option value="ABC-1234">ABC-1234</option>
+                        <option value="XYZ-5678">XYZ-5678</option>
+                        <option value="DEF-9012">DEF-9012</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Route</label>
+                    <select required>
+                        <option value="">Select Route</option>
+                        <option value="route1">Route 1 (City Center - Mall)</option>
+                        <option value="route2">Route 2 (University - Station)</option>
+                        <option value="route3">Route 3 (Market - Plaza)</option>
+                        <option value="route4">Route 4 (Hospital - School)</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-save"></i> Save Driver
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeDriverModal()" style="flex: 1;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Shift History Modal -->
+    <div class="modal" id="shiftsModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3>Shift History - <span id="shiftDriverName">Juan Dela Cruz</span></h3>
+                <button class="close-modal" onclick="closeShiftsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="max-height: 400px; overflow-y: auto;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Hours</th>
+                            <th>Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Oct 21, 2025</td>
+                            <td>6:00 AM</td>
+                            <td>In Progress</td>
+                            <td>6h 30m</td>
+                            <td>₱4,250</td>
+                        </tr>
+                        <tr>
+                            <td>Oct 20, 2025</td>
+                            <td>6:00 AM</td>
+                            <td>2:00 PM</td>
+                            <td>8h 0m</td>
+                            <td>₱5,680</td>
+                        </tr>
+                        <tr>
+                            <td>Oct 19, 2025</td>
+                            <td>6:00 AM</td>
+                            <td>2:00 PM</td>
+                            <td>8h 0m</td>
+                            <td>₱5,420</td>
+                        </tr>
+                        <tr>
+                            <td>Oct 18, 2025</td>
+                            <td>6:00 AM</td>
+                            <td>1:30 PM</td>
+                            <td>7h 30m</td>
+                            <td>₱5,120</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function editDriver(name) {
+            document.getElementById('modalTitle').textContent = 'Edit Driver - ' + name;
+            document.getElementById('driverModal').classList.add('active');
+        }
+
+        function deleteDriver(name) {
+            if (confirm('Are you sure you want to delete driver ' + name + '?')) {
+                alert('Driver deleted successfully!');
+            }
+        }
+
+        function viewShifts(name) {
+            document.getElementById('shiftDriverName').textContent = name;
+            document.getElementById('shiftsModal').classList.add('active');
+        }
+
+        function closeDriverModal() {
+            document.getElementById('driverModal').classList.remove('active');
+        }
+
+        function closeShiftsModal() {
+            document.getElementById('shiftsModal').classList.remove('active');
+        }
+
+        document.getElementById('addDriverBtn').addEventListener('click', function() {
+            document.getElementById('modalTitle').textContent = 'Add New Driver';
+            document.getElementById('driverModal').classList.add('active');
+        });
+
+        document.getElementById('driverForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Driver saved successfully!');
+            closeDriverModal();
+        });
+    </script>
+</body>
+</html>
+

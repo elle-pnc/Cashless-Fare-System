@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-jeeps.html" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>E-Jeep Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-drivers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-transactions.html" class="nav-link active">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-notifications.html" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search transactions...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <h4>Admin User</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Transactions</h1>
+                <p>View and manage all fare collections</p>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div>
+                            <input type="date" style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                        </div>
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All E-Jeeps</option>
+                            <option value="ABC-1234">ABC-1234</option>
+                            <option value="XYZ-5678">XYZ-5678</option>
+                            <option value="DEF-9012">DEF-9012</option>
+                        </select>
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Drivers</option>
+                            <option value="driver1">Juan Dela Cruz</option>
+                            <option value="driver2">Maria Santos</option>
+                            <option value="driver3">Pedro Reyes</option>
+                        </select>
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Routes</option>
+                            <option value="route1">Route 1</option>
+                            <option value="route2">Route 2</option>
+                            <option value="route3">Route 3</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-filter"></i> Apply Filters
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱45,280</h3>
+                        <p>Total Revenue Today</p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>2,456</h3>
+                        <p>Total Transactions</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱18.45</h3>
+                        <p>Average Fare</p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱32,830</h3>
+                        <p>Net After Expenses</p>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>Recent Transactions</h3>
+                    <button class="btn btn-success">
+                        <i class="fas fa-file-export"></i> Export CSV
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date & Time</th>
+                            <th>E-Jeep</th>
+                            <th>Driver</th>
+                            <th>Route</th>
+                            <th>Passengers</th>
+                            <th>Amount</th>
+                            <th>Payment Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>#TXN-001245</strong></td>
+                            <td>Oct 21, 2025 12:45 PM</td>
+                            <td>ABC-1234</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>Route 1</td>
+                            <td>18</td>
+                            <td><strong>₱270.00</strong></td>
+                            <td><span class="badge info">Cash</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001244</strong></td>
+                            <td>Oct 21, 2025 12:30 PM</td>
+                            <td>XYZ-5678</td>
+                            <td>Maria Santos</td>
+                            <td>Route 2</td>
+                            <td>15</td>
+                            <td><strong>₱225.00</strong></td>
+                            <td><span class="badge success">E-Wallet</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001243</strong></td>
+                            <td>Oct 21, 2025 12:15 PM</td>
+                            <td>DEF-9012</td>
+                            <td>Pedro Reyes</td>
+                            <td>Route 3</td>
+                            <td>20</td>
+                            <td><strong>₱300.00</strong></td>
+                            <td><span class="badge info">Cash</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001242</strong></td>
+                            <td>Oct 21, 2025 12:00 PM</td>
+                            <td>ABC-1234</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>Route 1</td>
+                            <td>16</td>
+                            <td><strong>₱240.00</strong></td>
+                            <td><span class="badge success">E-Wallet</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001241</strong></td>
+                            <td>Oct 21, 2025 11:45 AM</td>
+                            <td>JKL-7890</td>
+                            <td>Carlos Lopez</td>
+                            <td>Route 4</td>
+                            <td>12</td>
+                            <td><strong>₱180.00</strong></td>
+                            <td><span class="badge info">Cash</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001240</strong></td>
+                            <td>Oct 21, 2025 11:30 AM</td>
+                            <td>XYZ-5678</td>
+                            <td>Maria Santos</td>
+                            <td>Route 2</td>
+                            <td>14</td>
+                            <td><strong>₱210.00</strong></td>
+                            <td><span class="badge success">E-Wallet</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001239</strong></td>
+                            <td>Oct 21, 2025 11:15 AM</td>
+                            <td>DEF-9012</td>
+                            <td>Pedro Reyes</td>
+                            <td>Route 3</td>
+                            <td>19</td>
+                            <td><strong>₱285.00</strong></td>
+                            <td><span class="badge info">Cash</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001238</strong></td>
+                            <td>Oct 21, 2025 11:00 AM</td>
+                            <td>ABC-1234</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>Route 1</td>
+                            <td>17</td>
+                            <td><strong>₱255.00</strong></td>
+                            <td><span class="badge success">E-Wallet</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001237</strong></td>
+                            <td>Oct 21, 2025 10:45 AM</td>
+                            <td>GHI-3456</td>
+                            <td>Ana Garcia</td>
+                            <td>Route 1</td>
+                            <td>13</td>
+                            <td><strong>₱195.00</strong></td>
+                            <td><span class="badge info">Cash</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>#TXN-001236</strong></td>
+                            <td>Oct 21, 2025 10:30 AM</td>
+                            <td>JKL-7890</td>
+                            <td>Carlos Lopez</td>
+                            <td>Route 4</td>
+                            <td>11</td>
+                            <td><strong>₱165.00</strong></td>
+                            <td><span class="badge success">E-Wallet</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px; text-align: center;">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <span style="margin: 0 20px; color: var(--color-gray);">Page 1 of 24</span>
+                    <button class="btn btn-primary">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

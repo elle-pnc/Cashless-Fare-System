@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link active">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-jeeps.html" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>E-Jeep Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-drivers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-transactions.html" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-notifications.html" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search analytics...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <h4>Admin User</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Analytics & Reports</h1>
+                <p>Comprehensive insights into your E-Jeep operations</p>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-size: 13px; color: var(--color-gray);">Period</label>
+                        <select id="periodFilter" style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly" selected>Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-size: 13px; color: var(--color-gray);">E-Jeep</label>
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All E-Jeeps</option>
+                            <option value="ABC-1234">ABC-1234</option>
+                            <option value="XYZ-5678">XYZ-5678</option>
+                            <option value="DEF-9012">DEF-9012</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-size: 13px; color: var(--color-gray);">Route</label>
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Routes</option>
+                            <option value="route1">Route 1</option>
+                            <option value="route2">Route 2</option>
+                            <option value="route3">Route 3</option>
+                        </select>
+                    </div>
+                    <div style="margin-left: auto;">
+                        <label style="display: block; margin-bottom: 5px; font-size: 13px; color: var(--color-gray);">Export Report</label>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-success" style="padding: 10px 20px;">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                            <button class="btn btn-primary" style="padding: 10px 20px;">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱1,258,450</h3>
+                        <p>Total Revenue (This Month)</p>
+                        <small style="color: var(--color-green); font-weight: 600;">
+                            <i class="fas fa-arrow-up"></i> 15.2% from last month
+                        </small>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱389,620</h3>
+                        <p>Total Expenses (This Month)</p>
+                        <small style="color: var(--color-red); font-weight: 600;">
+                            <i class="fas fa-arrow-up"></i> 8.4% from last month
+                        </small>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱868,830</h3>
+                        <p>Net Profit (This Month)</p>
+                        <small style="color: var(--color-green); font-weight: 600;">
+                            <i class="fas fa-arrow-up"></i> 18.7% from last month
+                        </small>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>68,450</h3>
+                        <p>Total Passengers (This Month)</p>
+                        <small style="color: var(--color-green); font-weight: 600;">
+                            <i class="fas fa-arrow-up"></i> 12.3% from last month
+                        </small>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Monthly Profit Trend</h3>
+                </div>
+                <div class="chart">
+                    <div class="chart-bar green" style="height: 45%;" title="Jan: ₱658,230"></div>
+                    <div class="chart-bar green" style="height: 52%;" title="Feb: ₱702,450"></div>
+                    <div class="chart-bar green" style="height: 48%;" title="Mar: ₱685,120"></div>
+                    <div class="chart-bar green" style="height: 65%;" title="Apr: ₱758,960"></div>
+                    <div class="chart-bar green" style="height: 72%;" title="May: ₱812,340"></div>
+                    <div class="chart-bar green" style="height: 68%;" title="Jun: ₱789,450"></div>
+                    <div class="chart-bar green" style="height: 78%;" title="Jul: ₱845,670"></div>
+                    <div class="chart-bar green" style="height: 82%;" title="Aug: ₱876,230"></div>
+                    <div class="chart-bar green" style="height: 88%;" title="Sep: ₱902,540"></div>
+                    <div class="chart-bar green" style="height: 100%;" title="Oct: ₱956,780"></div>
+                    <div class="chart-bar green" style="height: 75%;" title="Nov: ₱820,150"></div>
+                    <div class="chart-bar green" style="height: 92%;" title="Dec: ₱868,830"></div>
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 13px; color: var(--color-gray);">
+                    <span>Jan</span>
+                    <span>Feb</span>
+                    <span>Mar</span>
+                    <span>Apr</span>
+                    <span>May</span>
+                    <span>Jun</span>
+                    <span>Jul</span>
+                    <span>Aug</span>
+                    <span>Sep</span>
+                    <span>Oct</span>
+                    <span>Nov</span>
+                    <span>Dec</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Passenger Count Per Day (This Week)</h3>
+                </div>
+                <div class="chart">
+                    <div class="chart-bar blue" style="height: 65%;" title="Mon: 1,856"></div>
+                    <div class="chart-bar blue" style="height: 72%;" title="Tue: 2,120"></div>
+                    <div class="chart-bar blue" style="height: 58%;" title="Wed: 1,680"></div>
+                    <div class="chart-bar blue" style="height: 85%;" title="Thu: 2,420"></div>
+                    <div class="chart-bar blue" style="height: 92%;" title="Fri: 2,680"></div>
+                    <div class="chart-bar blue" style="height: 100%;" title="Sat: 2,890"></div>
+                    <div class="chart-bar blue" style="height: 78%;" title="Sun: 2,240"></div>
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 13px; color: var(--color-gray);">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>Most Profitable Routes</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Route</th>
+                            <th>Total Trips</th>
+                            <th>Passengers</th>
+                            <th>Revenue</th>
+                            <th>Expenses</th>
+                            <th>Profit</th>
+                            <th>Avg. Profit/Trip</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Route 1 (City Center - Mall)</strong></td>
+                            <td>1,245</td>
+                            <td>18,450</td>
+                            <td>₱358,240</td>
+                            <td>₱98,450</td>
+                            <td><strong style="color: var(--color-green);">₱259,790</strong></td>
+                            <td>₱208.67</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Route 3 (Market - Plaza)</strong></td>
+                            <td>1,156</td>
+                            <td>16,890</td>
+                            <td>₱325,680</td>
+                            <td>₱92,340</td>
+                            <td><strong style="color: var(--color-green);">₱233,340</strong></td>
+                            <td>₱201.85</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Route 2 (University - Station)</strong></td>
+                            <td>1,089</td>
+                            <td>15,230</td>
+                            <td>₱298,450</td>
+                            <td>₱88,120</td>
+                            <td><strong style="color: var(--color-green);">₱210,330</strong></td>
+                            <td>₱193.21</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Route 4 (Hospital - School)</strong></td>
+                            <td>892</td>
+                            <td>12,340</td>
+                            <td>₱245,120</td>
+                            <td>₱78,560</td>
+                            <td><strong style="color: var(--color-green);">₱166,560</strong></td>
+                            <td>₱186.73</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>Busiest Times Analysis</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time Period</th>
+                            <th>Avg. Passengers/Hour</th>
+                            <th>Peak Days</th>
+                            <th>Utilization Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>6:00 AM - 9:00 AM</strong></td>
+                            <td>485</td>
+                            <td>Mon, Tue, Wed, Thu, Fri</td>
+                            <td><span class="badge success">92%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>9:00 AM - 12:00 PM</strong></td>
+                            <td>320</td>
+                            <td>Mon, Wed, Fri</td>
+                            <td><span class="badge info">68%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>12:00 PM - 3:00 PM</strong></td>
+                            <td>380</td>
+                            <td>Mon, Tue, Thu, Fri</td>
+                            <td><span class="badge info">75%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>3:00 PM - 6:00 PM</strong></td>
+                            <td>520</td>
+                            <td>Mon, Tue, Wed, Thu, Fri</td>
+                            <td><span class="badge success">95%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>6:00 PM - 9:00 PM</strong></td>
+                            <td>245</td>
+                            <td>Fri, Sat</td>
+                            <td><span class="badge warning">52%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>E-Jeep Performance Comparison</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Plate Number</th>
+                            <th>Total Revenue</th>
+                            <th>Total Expenses</th>
+                            <th>Net Profit</th>
+                            <th>Total Passengers</th>
+                            <th>Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ABC-1234</strong></td>
+                            <td>₱125,680</td>
+                            <td>₱32,450</td>
+                            <td><strong style="color: var(--color-green);">₱93,230</strong></td>
+                            <td>6,890</td>
+                            <td><span class="badge success">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DEF-9012</strong></td>
+                            <td>₱118,920</td>
+                            <td>₱31,240</td>
+                            <td><strong style="color: var(--color-green);">₱87,680</strong></td>
+                            <td>6,540</td>
+                            <td><span class="badge success">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>XYZ-5678</strong></td>
+                            <td>₱109,450</td>
+                            <td>₱29,680</td>
+                            <td><strong style="color: var(--color-green);">₱79,770</strong></td>
+                            <td>5,980</td>
+                            <td><span class="badge info">Good</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>GHI-3456</strong></td>
+                            <td>₱98,240</td>
+                            <td>₱28,120</td>
+                            <td><strong style="color: var(--color-green);">₱70,120</strong></td>
+                            <td>5,420</td>
+                            <td><span class="badge info">Good</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>JKL-7890</strong></td>
+                            <td>₱85,680</td>
+                            <td>₱26,890</td>
+                            <td><strong style="color: var(--color-yellow);">₱58,790</strong></td>
+                            <td>4,680</td>
+                            <td><span class="badge warning">Average</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

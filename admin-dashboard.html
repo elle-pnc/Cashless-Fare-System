@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-jeeps.html" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>E-Jeep Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-drivers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-transactions.html" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-notifications.html" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="top-bar-actions">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-right: 15px;">
+                        <i class="fas fa-cloud-sun" style="color: var(--color-yellow); font-size: 20px;"></i>
+                        <div>
+                            <div style="font-size: 14px; font-weight: 600;">28°C</div>
+                            <div style="font-size: 11px; color: var(--color-gray);">Partly Cloudy</div>
+                        </div>
+                    </div>
+                    <div style="font-size: 14px; font-weight: 600; color: var(--color-navy);" id="currentTime">
+                        10:30 AM
+                    </div>
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <h4>Admin User</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <p>Welcome back! Here's what's happening today.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Active E-Jeeps</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>2,456</h3>
+                        <p>Total Passengers Today</p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱45,280</h3>
+                        <p>Revenue Today</p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱12,450</h3>
+                        <p>Expenses Today</p>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Revenue & Profit Overview</h3>
+                    <div class="chart-tabs">
+                        <button class="tab-btn active" data-period="daily">Daily</button>
+                        <button class="tab-btn" data-period="weekly">Weekly</button>
+                        <button class="tab-btn" data-period="monthly">Monthly</button>
+                        <button class="tab-btn" data-period="yearly">Yearly</button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 20px; height: 20px; background: var(--color-yellow); border-radius: 4px;"></div>
+                        <span style="font-size: 13px; color: var(--color-gray);">Revenue</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 20px; height: 20px; background: var(--color-blue); border-radius: 4px;"></div>
+                        <span style="font-size: 13px; color: var(--color-gray);">Profit</span>
+                    </div>
+                </div>
+                <div class="chart" id="revenueChart">
+                    <div class="chart-bar yellow" style="height: 65%;" title="Mon: ₱38,240"></div>
+                    <div class="chart-bar yellow" style="height: 72%;" title="Tue: ₱42,150"></div>
+                    <div class="chart-bar yellow" style="height: 58%;" title="Wed: ₱35,680"></div>
+                    <div class="chart-bar yellow" style="height: 85%;" title="Thu: ₱48,920"></div>
+                    <div class="chart-bar yellow" style="height: 92%;" title="Fri: ₱52,340"></div>
+                    <div class="chart-bar yellow" style="height: 100%;" title="Sat: ₱58,765"></div>
+                    <div class="chart-bar yellow" style="height: 78%;" title="Sun: ₱45,280"></div>
+                </div>
+                <div class="chart" id="profitChart" style="margin-top: -290px;">
+                    <div class="chart-bar" style="height: 55%; opacity: 0.9;" title="Mon: ₱25,840"></div>
+                    <div class="chart-bar" style="height: 62%; opacity: 0.9;" title="Tue: ₱29,650"></div>
+                    <div class="chart-bar" style="height: 48%; opacity: 0.9;" title="Wed: ₱22,180"></div>
+                    <div class="chart-bar" style="height: 75%; opacity: 0.9;" title="Thu: ₱36,420"></div>
+                    <div class="chart-bar" style="height: 82%; opacity: 0.9;" title="Fri: ₱39,840"></div>
+                    <div class="chart-bar" style="height: 90%; opacity: 0.9;" title="Sat: ₱46,265"></div>
+                    <div class="chart-bar" style="height: 68%; opacity: 0.9;" title="Sun: ₱32,830"></div>
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 13px; color: var(--color-gray);">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div class="chart-header">
+                    <h3>Live E-Jeep Tracking</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-primary" style="padding: 10px 20px; font-size: 14px;">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3 style="margin: 10px 0;">Google Maps Integration</h3>
+                    <p>Real-time E-Jeep tracking with traffic detection</p>
+                    <div style="margin-top: 20px; display: flex; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: var(--color-green); border-radius: 50%;"></div>
+                            <span style="font-size: 13px;">Active (12)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: var(--color-yellow); border-radius: 50%;"></div>
+                            <span style="font-size: 13px;">Idle (3)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: var(--color-red); border-radius: 50%;"></div>
+                            <span style="font-size: 13px;">Offline (2)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>Active E-Jeeps</h3>
+                    <button class="btn btn-primary" onclick="location.href='admin-jeeps.html'" style="padding: 10px 20px; font-size: 14px;">
+                        <i class="fas fa-eye"></i> View All
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Plate Number</th>
+                            <th>Route</th>
+                            <th>Driver</th>
+                            <th>Passengers</th>
+                            <th>Status</th>
+                            <th>Revenue Today</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ABC-1234</strong></td>
+                            <td>Route 1 (City Center - Mall)</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>18/20</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>₱4,250</td>
+                        </tr>
+                        <tr>
+                            <td><strong>XYZ-5678</strong></td>
+                            <td>Route 2 (University - Station)</td>
+                            <td>Maria Santos</td>
+                            <td>15/20</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>₱3,890</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DEF-9012</strong></td>
+                            <td>Route 3 (Market - Plaza)</td>
+                            <td>Pedro Reyes</td>
+                            <td>20/20</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>₱5,120</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GHI-3456</strong></td>
+                            <td>Route 1 (City Center - Mall)</td>
+                            <td>Ana Garcia</td>
+                            <td>12/20</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>₱3,240</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JKL-7890</strong></td>
+                            <td>Route 4 (Hospital - School)</td>
+                            <td>Carlos Lopez</td>
+                            <td>0/20</td>
+                            <td><span class="badge warning">Idle</span></td>
+                            <td>₱2,680</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('currentTime').textContent = timeStr;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+    </script>
+</body>
+</html>
+

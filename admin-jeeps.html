@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Jeep Management - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-jeeps.html" class="nav-link active">
+                        <i class="fas fa-truck"></i>
+                        <span>E-Jeep Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-drivers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-transactions.html" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-notifications.html" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchJeeps" placeholder="Search e-jeeps...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <h4>Admin User</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>E-Jeep Management</h1>
+                <p>Manage your fleet of e-jeeps</p>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div style="display: flex; gap: 15px;">
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="idle">Idle</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                        <select style="padding: 10px 15px; border: 2px solid var(--color-light); border-radius: 10px;">
+                            <option value="all">All Routes</option>
+                            <option value="route1">Route 1</option>
+                            <option value="route2">Route 2</option>
+                            <option value="route3">Route 3</option>
+                            <option value="route4">Route 4</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="addJeepBtn">
+                        <i class="fas fa-plus"></i> Add New E-Jeep
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>17</h3>
+                        <p>Total E-Jeeps</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Active</p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>In Maintenance</p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Offline</p>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-power-off"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>E-Jeep Fleet</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Plate Number</th>
+                            <th>Route</th>
+                            <th>Driver Assigned</th>
+                            <th>Status</th>
+                            <th>Last Maintenance</th>
+                            <th>Next Maintenance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ABC-1234</strong></td>
+                            <td>Route 1 (City Center - Mall)</td>
+                            <td>Juan Dela Cruz</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>Oct 5, 2025</td>
+                            <td>Nov 5, 2025</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editJeep('ABC-1234')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(26, 188, 156, 0.1); color: var(--color-teal);" onclick="viewMaintenance('ABC-1234')">
+                                        <i class="fas fa-wrench"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteJeep('ABC-1234')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>XYZ-5678</strong></td>
+                            <td>Route 2 (University - Station)</td>
+                            <td>Maria Santos</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>Oct 8, 2025</td>
+                            <td>Nov 8, 2025</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editJeep('XYZ-5678')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(26, 188, 156, 0.1); color: var(--color-teal);" onclick="viewMaintenance('XYZ-5678')">
+                                        <i class="fas fa-wrench"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteJeep('XYZ-5678')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>DEF-9012</strong></td>
+                            <td>Route 3 (Market - Plaza)</td>
+                            <td>Pedro Reyes</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>Oct 10, 2025</td>
+                            <td>Nov 10, 2025</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editJeep('DEF-9012')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(26, 188, 156, 0.1); color: var(--color-teal);" onclick="viewMaintenance('DEF-9012')">
+                                        <i class="fas fa-wrench"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteJeep('DEF-9012')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>GHI-3456</strong></td>
+                            <td>Route 1 (City Center - Mall)</td>
+                            <td>Ana Garcia</td>
+                            <td><span class="badge warning">Maintenance</span></td>
+                            <td>Oct 18, 2025</td>
+                            <td>In Progress</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editJeep('GHI-3456')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(26, 188, 156, 0.1); color: var(--color-teal);" onclick="viewMaintenance('GHI-3456')">
+                                        <i class="fas fa-wrench"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteJeep('GHI-3456')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>JKL-7890</strong></td>
+                            <td>Route 4 (Hospital - School)</td>
+                            <td>Carlos Lopez</td>
+                            <td><span class="badge success">Active</span></td>
+                            <td>Oct 12, 2025</td>
+                            <td>Nov 12, 2025</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editJeep('JKL-7890')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(26, 188, 156, 0.1); color: var(--color-teal);" onclick="viewMaintenance('JKL-7890')">
+                                        <i class="fas fa-wrench"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteJeep('JKL-7890')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>MNO-2345</strong></td>
+                            <td>Route 2 (University - Station)</td>
+                            <td>Rosa Martinez</td>
+                            <td><span class="badge danger">Offline</span></td>
+                            <td>Oct 15, 2025</td>
+                            <td>Nov 15, 2025</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="editJeep('MNO-2345')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" style="background: rgba(26, 188, 156, 0.1); color: var(--color-teal);" onclick="viewMaintenance('MNO-2345')">
+                                        <i class="fas fa-wrench"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="deleteJeep('MNO-2345')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit E-Jeep Modal -->
+    <div class="modal" id="jeepModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New E-Jeep</h3>
+                <button class="close-modal" onclick="closeJeepModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="jeepForm">
+                <div class="form-group">
+                    <label>Plate Number</label>
+                    <input type="text" placeholder="ABC-1234" required>
+                </div>
+                <div class="form-group">
+                    <label>Route</label>
+                    <select required>
+                        <option value="">Select Route</option>
+                        <option value="route1">Route 1 (City Center - Mall)</option>
+                        <option value="route2">Route 2 (University - Station)</option>
+                        <option value="route3">Route 3 (Market - Plaza)</option>
+                        <option value="route4">Route 4 (Hospital - School)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Assign Driver</label>
+                    <select required>
+                        <option value="">Select Driver</option>
+                        <option value="driver1">Juan Dela Cruz</option>
+                        <option value="driver2">Maria Santos</option>
+                        <option value="driver3">Pedro Reyes</option>
+                        <option value="driver4">Ana Garcia</option>
+                        <option value="driver5">Carlos Lopez</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Capacity (Passengers)</label>
+                    <input type="number" placeholder="20" value="20" required>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select required>
+                        <option value="active">Active</option>
+                        <option value="idle">Idle</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-save"></i> Save E-Jeep
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeJeepModal()" style="flex: 1;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Maintenance Log Modal -->
+    <div class="modal" id="maintenanceModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3>Maintenance Logs - <span id="maintenancePlate">ABC-1234</span></h3>
+                <button class="close-modal" onclick="closeMaintenanceModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <button class="btn btn-primary btn-block" id="addMaintenanceBtn" style="margin-bottom: 20px;">
+                <i class="fas fa-plus"></i> Add Maintenance Record
+            </button>
+            <div style="max-height: 400px; overflow-y: auto;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Oct 5, 2025</td>
+                            <td><span class="badge info">Oil Change</span></td>
+                            <td>Regular oil change and filter replacement</td>
+                            <td>₱2,500</td>
+                        </tr>
+                        <tr>
+                            <td>Sep 20, 2025</td>
+                            <td><span class="badge warning">Tire Replacement</span></td>
+                            <td>Replaced 2 front tires</td>
+                            <td>₱8,500</td>
+                        </tr>
+                        <tr>
+                            <td>Sep 5, 2025</td>
+                            <td><span class="badge info">Battery Check</span></td>
+                            <td>Battery inspection and cleaning</td>
+                            <td>₱500</td>
+                        </tr>
+                        <tr>
+                            <td>Aug 15, 2025</td>
+                            <td><span class="badge warning">Brake Service</span></td>
+                            <td>Brake pad replacement</td>
+                            <td>₱6,200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function editJeep(plateNumber) {
+            document.getElementById('modalTitle').textContent = 'Edit E-Jeep - ' + plateNumber;
+            document.getElementById('jeepModal').classList.add('active');
+        }
+
+        function deleteJeep(plateNumber) {
+            if (confirm('Are you sure you want to delete E-Jeep ' + plateNumber + '?')) {
+                alert('E-Jeep deleted successfully!');
+            }
+        }
+
+        function viewMaintenance(plateNumber) {
+            document.getElementById('maintenancePlate').textContent = plateNumber;
+            document.getElementById('maintenanceModal').classList.add('active');
+        }
+
+        function closeJeepModal() {
+            document.getElementById('jeepModal').classList.remove('active');
+        }
+
+        function closeMaintenanceModal() {
+            document.getElementById('maintenanceModal').classList.remove('active');
+        }
+
+        document.getElementById('addJeepBtn').addEventListener('click', function() {
+            document.getElementById('modalTitle').textContent = 'Add New E-Jeep';
+            document.getElementById('jeepModal').classList.add('active');
+        });
+
+        document.getElementById('jeepForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('E-Jeep saved successfully!');
+            closeJeepModal();
+        });
+    </script>
+</body>
+</html>
+

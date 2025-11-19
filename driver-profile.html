@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Profile - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="driver-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="driver-analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="driver-profile.html" class="nav-link active">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar" style="background: var(--color-green);">JD</div>
+                        <div class="user-info">
+                            <h4>Juan Dela Cruz</h4>
+                            <p>Driver</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>My Profile</h1>
+                <p>Manage your profile and settings</p>
+            </div>
+
+            <!-- Profile Card -->
+            <div style="background: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; gap: 30px; align-items: start; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div class="user-avatar" style="width: 120px; height: 120px; font-size: 48px; background: var(--color-green);">JD</div>
+                        <button class="btn btn-primary" style="margin-top: 15px; padding: 10px 20px; font-size: 14px;">
+                            <i class="fas fa-camera"></i> Change Photo
+                        </button>
+                    </div>
+                    <div style="flex: 1;">
+                        <h2 style="margin-bottom: 10px;">Juan Dela Cruz</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                            <div>
+                                <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Email</p>
+                                <p style="font-weight: 600;">juan.delacruz@email.com</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Phone</p>
+                                <p style="font-weight: 600;">+63 912 345 6789</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">License Number</p>
+                                <p style="font-weight: 600;">N01-12-345678</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Assigned E-Jeep</p>
+                                <p style="font-weight: 600;">ABC-1234</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Route</p>
+                                <p style="font-weight: 600;">Route 1 (City Center - Mall)</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Member Since</p>
+                                <p style="font-weight: 600;">January 15, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Profile -->
+            <div class="table-container" style="margin-bottom: 30px;">
+                <div class="chart-header">
+                    <h3>Edit Profile Information</h3>
+                </div>
+                <form style="padding: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="Juan Dela Cruz">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" value="juan.delacruz@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" value="+63 912 345 6789">
+                        </div>
+                        <div class="form-group">
+                            <label>License Number</label>
+                            <input type="text" value="N01-12-345678">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" value="123 Main St, Manila">
+                        </div>
+                        <div class="form-group">
+                            <label>Emergency Contact</label>
+                            <input type="tel" value="+63 923 456 7890">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="table-container" style="margin-bottom: 30px;">
+                <div class="chart-header">
+                    <h3>Security Settings</h3>
+                </div>
+                <div style="padding: 20px;">
+                    <div class="form-group">
+                        <label>Current Password</label>
+                        <input type="password" placeholder="Enter current password">
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" placeholder="Enter new password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" placeholder="Confirm new password">
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-key"></i> Update Password
+                    </button>
+                </div>
+            </div>
+
+            <!-- Work History -->
+            <div class="table-container">
+                <div class="chart-header">
+                    <h3>Work History</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Shift Duration</th>
+                            <th>Passengers</th>
+                            <th>Revenue</th>
+                            <th>Expenses</th>
+                            <th>Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Oct 21, 2025</td>
+                            <td>6h 30m</td>
+                            <td>156</td>
+                            <td>₱4,250</td>
+                            <td>₱850</td>
+                            <td><strong style="color: var(--color-green);">₱3,400</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Oct 20, 2025</td>
+                            <td>8h 0m</td>
+                            <td>202</td>
+                            <td>₱5,680</td>
+                            <td>₱1,120</td>
+                            <td><strong style="color: var(--color-green);">₱4,560</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Oct 19, 2025</td>
+                            <td>8h 0m</td>
+                            <td>186</td>
+                            <td>₱5,420</td>
+                            <td>₱980</td>
+                            <td><strong style="color: var(--color-green);">₱4,440</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Oct 18, 2025</td>
+                            <td>7h 30m</td>
+                            <td>170</td>
+                            <td>₱5,120</td>
+                            <td>₱920</td>
+                            <td><strong style="color: var(--color-green);">₱4,200</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Oct 17, 2025</td>
+                            <td>8h 15m</td>
+                            <td>194</td>
+                            <td>₱5,890</td>
+                            <td>₱1,050</td>
+                            <td><strong style="color: var(--color-green);">₱4,840</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
