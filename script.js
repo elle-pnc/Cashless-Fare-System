@@ -49,73 +49,12 @@ function initializeLoginPage() {
         });
     });
 
-    // Form switching
-    const showSignupBtn = document.getElementById('showSignup');
-    const showLoginBtn = document.getElementById('showLogin');
-    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
-    const backToLoginBtn = document.getElementById('backToLogin');
-
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
-
-    if (showSignupBtn) {
-        showSignupBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            loginForm.classList.add('hidden');
-            signupForm.classList.remove('hidden');
-            forgotPasswordForm.classList.add('hidden');
-        });
-    }
-
-    if (showLoginBtn) {
-        showLoginBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            loginForm.classList.remove('hidden');
-            signupForm.classList.add('hidden');
-            forgotPasswordForm.classList.add('hidden');
-        });
-    }
-
-    if (forgotPasswordLink) {
-        forgotPasswordLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            loginForm.classList.add('hidden');
-            signupForm.classList.add('hidden');
-            forgotPasswordForm.classList.remove('hidden');
-        });
-    }
-
-    if (backToLoginBtn) {
-        backToLoginBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            loginForm.classList.remove('hidden');
-            signupForm.classList.add('hidden');
-            forgotPasswordForm.classList.add('hidden');
-        });
-    }
-
     // Login form submission
+    const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             handleLogin();
-        });
-    }
-
-    // Signup form submission
-    if (signupForm) {
-        signupForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            handleSignup();
-        });
-    }
-
-    // Forgot password form submission
-    if (forgotPasswordForm) {
-        forgotPasswordForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            handleForgotPassword();
         });
     }
 
@@ -158,17 +97,6 @@ function handleLogin() {
     }
 }
 
-function handleSignup() {
-    alert('Account created successfully! Please login.');
-    document.getElementById('signupForm').classList.add('hidden');
-    document.getElementById('loginForm').classList.remove('hidden');
-}
-
-function handleForgotPassword() {
-    alert('Password reset link sent to your email!');
-    document.getElementById('forgotPasswordForm').classList.add('hidden');
-    document.getElementById('loginForm').classList.remove('hidden');
-}
 
 function redirectToDashboard(role) {
     switch(role) {
@@ -177,9 +105,6 @@ function redirectToDashboard(role) {
             break;
         case 'driver':
             window.location.href = 'driver-dashboard.html';
-            break;
-        case 'user':
-            window.location.href = 'user-dashboard.html';
             break;
         default:
             window.location.href = 'admin-dashboard.html';
