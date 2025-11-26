@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commuter Dashboard - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="commuter-dashboard.html" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="commuter-terminal.html" class="nav-link">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Fare Terminal</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Commuter Dashboard</h1>
+            </div>
+
+            <!-- Account Balance Card -->
+            <div style="background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-md); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <p style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Card Balance</p>
+                        <h2 style="font-size: 48px; font-weight: 700; margin: 0;" id="mainBalance">₱250.00</h2>
+                        <p style="font-size: 14px; opacity: 0.9; margin-top: 10px;">Card Number: **** 1234</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <button class="btn" style="background: white; color: #3498DB; padding: 12px 30px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="openTopUpModal()">
+                            <i class="fas fa-plus-circle"></i> Top Up
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="totalTrips">24</h3>
+                        <p>Total Trips</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-route"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="totalSpent">₱360.00</h3>
+                        <p>Total Spent</p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="thisMonthTrips">8</h3>
+                        <p>Trips This Month</p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="avgFare">₱15.00</h3>
+                        <p>Average Fare</p>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seat Availability Display -->
+            <div style="background: white; padding: 30px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h3>Seat Availability</h3>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 20px; height: 20px; background: #27AE60; border-radius: 4px;"></div>
+                            <span style="font-size: 13px; color: var(--color-gray);">Available</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 20px; height: 20px; background: #E74C3C; border-radius: 4px;"></div>
+                            <span style="font-size: 13px; color: var(--color-gray);">Occupied</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Jeepney Visual -->
+                <div style="background: linear-gradient(135deg, #34495E 0%, #2C3E50 100%); border-radius: 15px; padding: 30px; margin-bottom: 20px; position: relative; overflow: hidden;">
+                    <!-- Jeepney Header -->
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <div style="display: inline-block; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; margin-bottom: 10px;">
+                            <h4 style="color: white; margin: 0; font-size: 18px;" id="jeepneyIdDisplay">ABC-1234</h4>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 14px; margin: 5px 0 0 0;" id="jeepneyRouteDisplay">Route 1 - City Center to Mall</p>
+                    </div>
+                    
+                    <!-- Seats Layout -->
+                    <div style="display: flex; justify-content: center; gap: 30px; align-items: center;">
+                        <!-- Left Seat -->
+                        <div style="flex: 1; max-width: 200px;">
+                            <div style="text-align: center; margin-bottom: 10px;">
+                                <span style="color: rgba(255,255,255,0.7); font-size: 12px;">Seat 1</span>
+                            </div>
+                            <div id="seat1" style="width: 100%; aspect-ratio: 1; background: #27AE60; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; cursor: pointer;" onclick="toggleSeat(1)">
+                                <i class="fas fa-chair" style="font-size: 48px; color: white;"></i>
+                            </div>
+                            <div style="text-align: center; margin-top: 10px;">
+                                <span id="seat1Status" style="color: white; font-size: 14px; font-weight: 600;">Available</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Driver Area (Visual Separator) -->
+                        <div style="width: 80px; text-align: center;">
+                            <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px;">
+                                <i class="fas fa-user-tie" style="font-size: 32px; color: rgba(255,255,255,0.8);"></i>
+                                <p style="color: rgba(255,255,255,0.7); font-size: 11px; margin: 5px 0 0 0;">Driver</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Seat -->
+                        <div style="flex: 1; max-width: 200px;">
+                            <div style="text-align: center; margin-bottom: 10px;">
+                                <span style="color: rgba(255,255,255,0.7); font-size: 12px;">Seat 2</span>
+                            </div>
+                            <div id="seat2" style="width: 100%; aspect-ratio: 1; background: #27AE60; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; cursor: pointer;" onclick="toggleSeat(2)">
+                                <i class="fas fa-chair" style="font-size: 48px; color: white;"></i>
+                            </div>
+                            <div style="text-align: center; margin-top: 10px;">
+                                <span id="seat2Status" style="color: white; font-size: 14px; font-weight: 600;">Available</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Availability Summary -->
+                    <div style="display: flex; justify-content: center; gap: 30px; margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <div style="text-align: center;">
+                            <div style="font-size: 32px; font-weight: 700; color: white;" id="availableCountDisplay">2</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Available</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 32px; font-weight: 700; color: white;" id="occupiedCountDisplay">0</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Occupied</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 32px; font-weight: 700; color: white;">2</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Total Seats</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Trips -->
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Recent Trips</h3>
+                    <button class="btn btn-secondary" onclick="viewAllTrips()" style="padding: 8px 20px; font-size: 14px;">
+                        View All
+                    </button>
+                </div>
+                <div id="recentTripsList"></div>
+            </div>
+
+            <!-- Trip History Chart -->
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
+                <h3 style="margin-bottom: 20px;">Spending Overview</h3>
+                <div class="chart-container">
+                    <div class="chart" id="spendingChart">
+                        <div class="chart-bar" style="height: 45%;" title="Mon: ₱45"></div>
+                        <div class="chart-bar" style="height: 60%;" title="Tue: ₱60"></div>
+                        <div class="chart-bar" style="height: 30%;" title="Wed: ₱30"></div>
+                        <div class="chart-bar" style="height: 75%;" title="Thu: ₱75"></div>
+                        <div class="chart-bar" style="height: 90%;" title="Fri: ₱90"></div>
+                        <div class="chart-bar" style="height: 50%;" title="Sat: ₱50"></div>
+                        <div class="chart-bar" style="height: 40%;" title="Sun: ₱40"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 13px; color: var(--color-gray);">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Trip (if any) -->
+            <div id="activeTripCard" style="background: linear-gradient(135deg, #27AE60 0%, #229954 100%); padding: 25px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-md); color: white; display: none;">
+                <h3 style="margin-bottom: 15px;"><i class="fas fa-bus"></i> Active Trip</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+                    <div>
+                        <p style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">Current Location</p>
+                        <h4 style="font-size: 18px; font-weight: 600;" id="currentLocation">Terminal 2</h4>
+                    </div>
+                    <div>
+                        <p style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">Drop-off Terminal</p>
+                        <h4 style="font-size: 18px; font-weight: 600;" id="dropOffTerminal">Terminal 4</h4>
+                    </div>
+                    <div>
+                        <p style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">Assigned Seat</p>
+                        <h4 style="font-size: 18px; font-weight: 600;" id="assignedSeat">Seat 12</h4>
+                    </div>
+                    <div>
+                        <p style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">Fare Paid</p>
+                        <h4 style="font-size: 18px; font-weight: 600;" id="farePaid">₱22.00</h4>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button class="btn" style="background: white; color: #27AE60; padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="window.location.href='commuter-terminal.html'">
+                        <i class="fas fa-route"></i> Change Terminal
+                    </button>
+                    <button class="btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border: 2px solid white; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="viewTripDetails()">
+                        <i class="fas fa-info-circle"></i> Trip Details
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Top Up Modal -->
+    <div class="modal" id="topUpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Top Up Card Balance</h3>
+                <button class="close-modal" onclick="closeTopUpModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="padding: 20px 0;">
+                <div class="form-group">
+                    <label>Amount (₱)</label>
+                    <input type="number" id="topUpAmount" placeholder="Enter amount" min="50" step="10" value="100">
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(50)" style="padding: 10px;">₱50</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(100)" style="padding: 10px;">₱100</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(200)" style="padding: 10px;">₱200</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(500)" style="padding: 10px;">₱500</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(1000)" style="padding: 10px;">₱1,000</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(2000)" style="padding: 10px;">₱2,000</button>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="button" class="btn btn-primary" onclick="confirmTopUp()" style="flex: 1;">
+                        <i class="fas fa-check"></i> Confirm Top Up
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeTopUpModal()" style="flex: 1;">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Commuter Data
+        let commuterBalance = 250.00;
+        let tripHistory = [
+            { date: new Date('2024-01-15 08:30'), from: 'Terminal 1', to: 'Terminal 3', fare: 18.00, seat: 5 },
+            { date: new Date('2024-01-15 14:20'), from: 'Terminal 3', to: 'Terminal 1', fare: 18.00, seat: 12 },
+            { date: new Date('2024-01-14 09:15'), from: 'Terminal 2', to: 'Terminal 4', fare: 22.00, seat: 8 },
+            { date: new Date('2024-01-14 17:45'), from: 'Terminal 4', to: 'Terminal 2', fare: 22.00, seat: 15 },
+            { date: new Date('2024-01-13 07:30'), from: 'Terminal 1', to: 'Terminal 2', fare: 15.00, seat: 3 },
+            { date: new Date('2024-01-13 18:20'), from: 'Terminal 2', to: 'Terminal 1', fare: 15.00, seat: 10 }
+        ];
+
+        function updateBalance() {
+            document.getElementById('mainBalance').textContent = `₱${commuterBalance.toFixed(2)}`;
+            
+            // Check localStorage for balance updates from terminal
+            const balanceUpdate = localStorage.getItem('balanceUpdate');
+            if (balanceUpdate) {
+                const data = JSON.parse(balanceUpdate);
+                commuterBalance = data.balance;
+                document.getElementById('mainBalance').textContent = `₱${commuterBalance.toFixed(2)}`;
+                localStorage.removeItem('balanceUpdate');
+            }
+        }
+
+        function updateStats() {
+            const totalTrips = tripHistory.length;
+            const totalSpent = tripHistory.reduce((sum, trip) => sum + trip.fare, 0);
+            const thisMonth = tripHistory.filter(trip => {
+                const tripDate = new Date(trip.date);
+                const now = new Date();
+                return tripDate.getMonth() === now.getMonth() && tripDate.getFullYear() === now.getFullYear();
+            }).length;
+            const avgFare = totalTrips > 0 ? (totalSpent / totalTrips) : 0;
+
+            document.getElementById('totalTrips').textContent = totalTrips;
+            document.getElementById('totalSpent').textContent = `₱${totalSpent.toFixed(2)}`;
+            document.getElementById('thisMonthTrips').textContent = thisMonth;
+            document.getElementById('avgFare').textContent = `₱${avgFare.toFixed(2)}`;
+        }
+
+        function updateRecentTrips() {
+            const container = document.getElementById('recentTripsList');
+            container.innerHTML = '';
+
+            const recent = tripHistory.slice(0, 5);
+            
+            if (recent.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--color-gray); padding: 20px;">No trips yet</p>';
+                return;
+            }
+
+            recent.forEach(trip => {
+                const date = new Date(trip.date);
+                const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                const div = document.createElement('div');
+                div.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #f0f0f0;';
+                div.innerHTML = `
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 40px; height: 40px; background: #3498DB; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--color-navy);">${trip.from} → ${trip.to}</div>
+                                <div style="font-size: 12px; color: var(--color-gray);">${dateStr} at ${timeStr} • Seat ${trip.seat}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 600; color: var(--color-navy);">₱${trip.fare.toFixed(2)}</div>
+                        <div style="font-size: 12px; color: var(--color-gray);">Fare</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateSeatAvailability() {
+            // Check localStorage for seat updates
+            const seatUpdate = localStorage.getItem('seatUpdate');
+            let occupied = 0;
+            let total = 2;
+            
+            if (seatUpdate) {
+                const data = JSON.parse(seatUpdate);
+                occupied = data.occupied;
+                total = data.total || 2;
+            }
+            
+            const available = total - occupied;
+            
+            // Update seat displays
+            for (let i = 1; i <= total; i++) {
+                const seatElement = document.getElementById(`seat${i}`);
+                const statusElement = document.getElementById(`seat${i}Status`);
+                
+                if (seatElement && statusElement) {
+                    if (i <= occupied) {
+                        seatElement.style.background = '#E74C3C';
+                        statusElement.textContent = 'Occupied';
+                        seatElement.style.cursor = 'not-allowed';
+                        seatElement.style.opacity = '0.8';
+                    } else {
+                        seatElement.style.background = '#27AE60';
+                        statusElement.textContent = 'Available';
+                        seatElement.style.cursor = 'pointer';
+                        seatElement.style.opacity = '1';
+                    }
+                }
+            }
+            
+            // Update counts
+            document.getElementById('availableCountDisplay').textContent = available;
+            document.getElementById('occupiedCountDisplay').textContent = occupied;
+        }
+        
+        function toggleSeat(seatNum) {
+            // This is just for visual feedback - actual seat assignment happens at terminal
+            const seatElement = document.getElementById(`seat${seatNum}`);
+            if (seatElement.style.background === 'rgb(39, 174, 96)') {
+                // Visual feedback only
+                seatElement.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    seatElement.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+        
+        function checkActiveTrip() {
+            // Check if there's an active trip from terminal
+            const activeTrip = localStorage.getItem('activeTrip');
+            if (activeTrip) {
+                const trip = JSON.parse(activeTrip);
+                if (trip.isActive) {
+                    document.getElementById('activeTripCard').style.display = 'block';
+                    document.getElementById('currentLocation').textContent = trip.currentLocation || 'In Transit';
+                    document.getElementById('dropOffTerminal').textContent = trip.dropOffTerminal;
+                    document.getElementById('assignedSeat').textContent = `Seat ${trip.seat}`;
+                    document.getElementById('farePaid').textContent = `₱${trip.fare.toFixed(2)}`;
+                } else {
+                    document.getElementById('activeTripCard').style.display = 'none';
+                    // Add completed trip to history
+                    if (trip.completed) {
+                        tripHistory.unshift({
+                            date: new Date(),
+                            from: trip.from || 'Terminal 1',
+                            to: trip.dropOffTerminal,
+                            fare: trip.fare,
+                            seat: trip.seat
+                        });
+                        updateStats();
+                        updateRecentTrips();
+                    }
+                    localStorage.removeItem('activeTrip');
+                }
+            } else {
+                document.getElementById('activeTripCard').style.display = 'none';
+            }
+        }
+
+        function openTopUpModal() {
+            document.getElementById('topUpModal').classList.add('active');
+            document.getElementById('topUpAmount').focus();
+        }
+
+        function closeTopUpModal() {
+            document.getElementById('topUpModal').classList.remove('active');
+        }
+
+        function setTopUpAmount(amount) {
+            document.getElementById('topUpAmount').value = amount;
+        }
+
+        function confirmTopUp() {
+            const amount = parseFloat(document.getElementById('topUpAmount').value);
+            if (isNaN(amount) || amount < 50) {
+                alert('Minimum top-up amount is ₱50');
+                return;
+            }
+
+            // Simulate top-up
+            commuterBalance += amount;
+            updateBalance();
+            
+            // Broadcast balance update
+            localStorage.setItem('balanceUpdate', JSON.stringify({
+                balance: commuterBalance,
+                timestamp: Date.now()
+            }));
+
+            closeTopUpModal();
+            alert(`Successfully topped up ₱${amount.toFixed(2)}!\nNew balance: ₱${commuterBalance.toFixed(2)}`);
+        }
+
+        function viewAllTrips() {
+            alert('View all trips feature - would show complete trip history with filters');
+        }
+
+        function viewTripDetails() {
+            alert('Trip details feature - would show detailed information about current trip');
+        }
+
+        // Initialize
+        updateBalance();
+        updateStats();
+        updateRecentTrips();
+        updateSeatAvailability();
+        checkActiveTrip();
+
+        // Check for updates every second
+        setInterval(() => {
+            updateBalance();
+            updateSeatAvailability();
+            checkActiveTrip();
+        }, 1000);
+
+        // Close modal when clicking outside
+        document.getElementById('topUpModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTopUpModal();
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="driver-dashboard.html" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Driver Dashboard</h1>
+            </div>
+
+            <!-- Shift Control -->
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <h3 style="margin-bottom: 5px;">Shift Status</h3>
+                        <p style="color: var(--color-gray); margin: 0;">Shift started at 6:00 AM</p>
+                    </div>
+                    <button class="btn" style="background: var(--color-red); color: white; padding: 15px 30px;" id="endShiftBtn">
+                        <i class="fas fa-stop-circle"></i> End Shift
+                    </button>
+                </div>
+            </div>
+
+            <!-- Assigned Info -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <h3 style="margin-bottom: 15px;">Today's Assignment</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Assigned E-Jeep</p>
+                        <h4 style="color: var(--color-navy);">ABC-1234</h4>
+                    </div>
+                    <div>
+                        <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Route</p>
+                        <h4 style="color: var(--color-navy);">Route 1 (City Center - Mall)</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seat Availability -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <h3 style="margin-bottom: 15px;">Seat Availability</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div>
+                        <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Available Seats</p>
+                        <h4 style="color: var(--color-navy); font-size: 24px;" id="availableSeatsDisplay">2 / 2</h4>
+                    </div>
+                    <div style="display: flex; gap: 5px; flex-wrap: wrap; max-width: 300px;" id="seatIndicator"></div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px;">
+                    <div style="text-align: center; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+                        <div style="font-size: 20px; font-weight: 700; color: var(--color-green);" id="availableCount">2</div>
+                        <div style="font-size: 11px; color: var(--color-gray);">Available</div>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+                        <div style="font-size: 20px; font-weight: 700; color: var(--color-red);" id="occupiedCount">0</div>
+                        <div style="font-size: 11px; color: var(--color-gray);">Occupied</div>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+                        <div style="font-size: 20px; font-weight: 700; color: var(--color-blue);" id="totalSeatsCount">2</div>
+                        <div style="font-size: 11px; color: var(--color-gray);">Total</div>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+                        <div style="font-size: 20px; font-weight: 700; color: var(--color-yellow);" id="boardingCount">0</div>
+                        <div style="font-size: 11px; color: var(--color-gray);">Boarding</div>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+                        <div style="font-size: 20px; font-weight: 700; color: var(--color-teal);" id="alightingCount">0</div>
+                        <div style="font-size: 11px; color: var(--color-gray);">Alighting</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Waiting Passengers -->
+            <div id="waitingPassengersCard" style="background: linear-gradient(135deg, #F39C12 0%, #E67E22 100%); padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm); color: white; display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; color: white;">
+                        <i class="fas fa-user-clock"></i> Waiting Passengers
+                    </h3>
+                    <span id="waitingCount" style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 14px; font-weight: 600;">0</span>
+                </div>
+                <div id="waitingPassengersList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;"></div>
+            </div>
+
+            <!-- Terminal Tracking -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm);">
+                <h3 style="margin-bottom: 15px;">Boarding & Alighting by Terminal</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;" id="terminalTracking"></div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="currentPassengers">0</h3>
+                        <p>Current Passengers</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="totalPassengersToday">24</h3>
+                        <p>Total Passengers Today</p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="revenueAmount">₱360</h3>
+                        <p>Revenue</p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card" id="expensesCard" style="cursor: pointer;" onclick="openExpenseModal()">
+                    <div class="stat-info">
+                        <h3 id="expensesAmount">₱850</h3>
+                        <p>Expenses <i class="fas fa-edit" style="font-size: 12px; margin-left: 5px;"></i></p>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="profitAmount">₱3,400</h3>
+                        <p>Profit</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Expense Input Modal -->
+    <div class="modal" id="expenseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Input Expense Amount</h3>
+                <button class="close-modal" onclick="closeExpenseModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="padding: 20px 0;">
+                <div class="form-group">
+                    <label>Expense Amount (₱)</label>
+                    <input type="number" id="expenseInput" placeholder="Enter expense amount" min="0" step="0.01" value="850">
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="button" class="btn btn-primary" onclick="saveExpense()" style="flex: 1;">
+                        <i class="fas fa-check"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeExpenseModal()" style="flex: 1;">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // End shift button
+        document.getElementById('endShiftBtn').addEventListener('click', function() {
+            if (confirm('Are you sure you want to end your shift?')) {
+                alert('Shift ended successfully!');
+            }
+        });
+
+        // Expense modal functions
+        function openExpenseModal() {
+            document.getElementById('expenseModal').classList.add('active');
+            document.getElementById('expenseInput').focus();
+        }
+
+        function closeExpenseModal() {
+            document.getElementById('expenseModal').classList.remove('active');
+        }
+
+        function saveExpense() {
+            const expenseAmount = parseFloat(document.getElementById('expenseInput').value);
+            if (isNaN(expenseAmount) || expenseAmount < 0) {
+                alert('Please enter a valid expense amount');
+                return;
+            }
+
+            // Update expenses display
+            document.getElementById('expensesAmount').textContent = '₱' + expenseAmount.toFixed(2);
+            
+            // Calculate and update profit (Revenue - Expenses)
+            const revenue = 4250;
+            const profit = revenue - expenseAmount;
+            document.getElementById('profitAmount').textContent = '₱' + profit.toFixed(2);
+            
+            closeExpenseModal();
+            alert('Expense updated successfully!');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('expenseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExpenseModal();
+            }
+        });
+
+        // Seat and Terminal Tracking
+        const totalSeats = 2;
+        let occupiedSeats = 0;
+        let totalPassengersToday = 24;
+        let revenueToday = 360.00;
+        let terminalStats = {
+            'Terminal 1': { boarding: 5, alighting: 3 },
+            'Terminal 2': { boarding: 6, alighting: 4 },
+            'Terminal 3': { boarding: 8, alighting: 7 },
+            'Terminal 4': { boarding: 5, alighting: 6 },
+            'Terminal 5': { boarding: 0, alighting: 4 }
+        };
+
+        function updateSeatDisplay() {
+            const available = totalSeats - occupiedSeats;
+            document.getElementById('availableSeatsDisplay').textContent = `${available} / ${totalSeats}`;
+            document.getElementById('availableCount').textContent = available;
+            document.getElementById('occupiedCount').textContent = occupiedSeats;
+            document.getElementById('totalSeatsCount').textContent = totalSeats;
+            document.getElementById('currentPassengers').textContent = occupiedSeats;
+            
+            // Update total passengers (increment when someone boards)
+            updateTotalPassengers();
+        }
+        
+        function updateTotalPassengers() {
+            document.getElementById('totalPassengersToday').textContent = totalPassengersToday;
+        }
+        
+        function updateRevenue() {
+            document.getElementById('revenueAmount').textContent = `₱${revenueToday.toFixed(2)}`;
+        }
+
+            // Update seat indicator
+            const indicator = document.getElementById('seatIndicator');
+            indicator.innerHTML = '';
+            for (let i = 1; i <= totalSeats; i++) {
+                const seat = document.createElement('div');
+                seat.style.width = '20px';
+                seat.style.height = '20px';
+                seat.style.borderRadius = '4px';
+                seat.style.display = 'flex';
+                seat.style.alignItems = 'center';
+                seat.style.justifyContent = 'center';
+                seat.style.fontSize = '10px';
+                seat.textContent = i;
+                if (i <= occupiedSeats) {
+                    seat.style.background = '#E74C3C';
+                    seat.style.color = 'white';
+                } else {
+                    seat.style.background = '#27AE60';
+                    seat.style.color = 'white';
+                }
+                indicator.appendChild(seat);
+            }
+        }
+
+        function updateTerminalTracking() {
+            const container = document.getElementById('terminalTracking');
+            container.innerHTML = '';
+            
+            Object.keys(terminalStats).forEach(terminal => {
+                const stats = terminalStats[terminal];
+                const div = document.createElement('div');
+                div.style.padding = '15px';
+                div.style.background = '#f0f0f0';
+                div.style.borderRadius = '8px';
+                div.innerHTML = `
+                    <div style="font-weight: 600; margin-bottom: 10px; color: var(--color-navy);">${terminal}</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                        <span style="color: var(--color-green);">
+                            <i class="fas fa-arrow-up"></i> ${stats.boarding}
+                        </span>
+                        <span style="color: var(--color-blue);">
+                            <i class="fas fa-arrow-down"></i> ${stats.alighting}
+                        </span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateBoardingAlightingCounts() {
+            let totalBoarding = 0;
+            let totalAlighting = 0;
+            Object.values(terminalStats).forEach(stats => {
+                totalBoarding += stats.boarding;
+                totalAlighting += stats.alighting;
+            });
+            document.getElementById('boardingCount').textContent = totalBoarding;
+            document.getElementById('alightingCount').textContent = totalAlighting;
+        }
+        
+        function updateWaitingPassengers() {
+            const waitingCard = document.getElementById('waitingPassengersCard');
+            const waitingList = document.getElementById('waitingPassengersList');
+            const waitingCount = document.getElementById('waitingCount');
+            
+            // Check available seats
+            const available = totalSeats - occupiedSeats;
+            
+            // Only show if seats are available
+            const waitingData = localStorage.getItem('waitingPassenger');
+            
+            if (waitingData && available > 0) {
+                const waiting = JSON.parse(waitingData);
+                waitingCard.style.display = 'block';
+                waitingCount.textContent = '1';
+                
+                waitingList.innerHTML = `
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; backdrop-filter: blur(10px);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <i class="fas fa-map-marker-alt" style="font-size: 20px;"></i>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; font-size: 16px; margin-bottom: 5px;">
+                                    ${waiting.origin} → ${waiting.destination}
+                                </div>
+                                <div style="font-size: 13px; opacity: 0.9;">
+                                    Waiting at ${waiting.origin}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2);">
+                            <div>
+                                <div style="font-size: 12px; opacity: 0.8;">Fare</div>
+                                <div style="font-size: 18px; font-weight: 700;">₱${waiting.fare.toFixed(2)}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 12px; opacity: 0.8;">Available Seats</div>
+                                <div style="font-size: 18px; font-weight: 700; color: #27AE60;">${available}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                waitingCard.style.display = 'none';
+                waitingList.innerHTML = '';
+            }
+        }
+
+        // Listen for updates from commuter terminal
+        function checkForUpdates() {
+            // Check localStorage for updates
+            const seatUpdate = localStorage.getItem('seatUpdate');
+            if (seatUpdate) {
+                const data = JSON.parse(seatUpdate);
+                occupiedSeats = data.occupied;
+                updateSeatDisplay();
+                localStorage.removeItem('seatUpdate');
+            }
+
+            const boarding = localStorage.getItem('boarding');
+            if (boarding) {
+                const data = JSON.parse(boarding);
+                if (terminalStats[data.terminal]) {
+                    terminalStats[data.terminal].boarding++;
+                    totalPassengersToday++;
+                    updateTerminalTracking();
+                    updateBoardingAlightingCounts();
+                    updateTotalPassengers();
+                }
+                localStorage.removeItem('boarding');
+            }
+
+            const alighting = localStorage.getItem('alighting');
+            if (alighting) {
+                const data = JSON.parse(alighting);
+                if (terminalStats[data.terminal]) {
+                    terminalStats[data.terminal].alighting++;
+                    updateTerminalTracking();
+                    updateBoardingAlightingCounts();
+                }
+                localStorage.removeItem('alighting');
+            }
+        }
+
+        // Initialize
+        updateSeatDisplay();
+        updateTerminalTracking();
+        updateBoardingAlightingCounts();
+        updateTotalPassengers();
+        updateRevenue();
+        updateWaitingPassengers();
+        
+        // Check for updates every second
+        setInterval(() => {
+            checkForUpdates();
+            updateWaitingPassengers();
+        }, 1000);
+    </script>
+</body>
+</html>
