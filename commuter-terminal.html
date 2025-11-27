@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fare Terminal - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="commuter-dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="commuter-terminal.html" class="nav-link active">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Fare Terminal</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Fare Terminal</h1>
+                <p style="color: var(--color-gray); margin-top: 5px;">Select your drop-off terminal and tap your card to board</p>
+            </div>
+
+            <!-- Incoming Jeepney Information -->
+            <div id="jeepneyInfoCard" style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm); display: none;">
+                <h3 style="margin-bottom: 20px; color: var(--color-navy);">
+                    <i class="fas fa-bus" style="color: var(--color-blue); margin-right: 10px;"></i>
+                    Incoming Jeepney
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+                    <div>
+                        <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Jeepney ID</p>
+                        <h4 style="color: var(--color-navy); font-size: 18px;" id="jeepneyId">ABC-1234</h4>
+                    </div>
+                    <div>
+                        <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Route</p>
+                        <h4 style="color: var(--color-navy); font-size: 18px;" id="jeepneyRoute">Route 1</h4>
+                    </div>
+                    <div>
+                        <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Route Direction</p>
+                        <h4 style="color: var(--color-navy); font-size: 18px;" id="jeepneyRouteDirection">Terminal 1 → Terminal 5</h4>
+                    </div>
+                    <div>
+                        <p style="color: var(--color-gray); font-size: 13px; margin-bottom: 5px;">Available Seats</p>
+                        <h4 style="color: var(--color-navy); font-size: 18px;" id="availableSeats">2 / 2</h4>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #f0f0f0;">
+                    <span style="font-size: 13px; color: var(--color-gray);">Seat Status:</span>
+                    <div style="display: flex; gap: 8px;" id="seatsIndicator"></div>
+                </div>
+        </div>
+
+            <!-- No Matching Jeepney Message -->
+            <div id="noJeepneyCard" style="background: #fff9e6; padding: 25px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm); border: 2px solid var(--color-yellow); display: none;">
+                <div style="text-align: center;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: var(--color-yellow); margin-bottom: 15px;"></i>
+                    <h3 style="color: var(--color-navy); margin-bottom: 10px;">No Matching Jeepney Available</h3>
+                    <p style="color: var(--color-gray); font-size: 14px; margin: 0;">
+                        No jeepney is currently serving your selected route. Please select a different route or wait for a matching jeepney.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Balance and Terminal Selection -->
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px;">
+                <!-- Balance Card -->
+                <div style="background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%); padding: 30px; border-radius: 15px; box-shadow: var(--shadow-md); color: white; text-align: center;">
+                    <p style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Card Balance</p>
+                    <h2 style="font-size: 42px; font-weight: 700; margin: 0 0 15px 0;" id="cardBalance">₱250.00</h2>
+                    <p style="font-size: 12px; opacity: 0.8;">Card Number: **** 1234</p>
+                </div>
+
+                <!-- Terminal Selection -->
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: var(--shadow-sm);">
+                    <h3 style="margin-bottom: 20px; color: var(--color-navy);">
+                        <i class="fas fa-map-marker-alt" style="color: var(--color-blue); margin-right: 10px;"></i>
+                        Select Your Route
+                    </h3>
+                    
+                    <!-- Origin Terminal Selection -->
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: var(--color-gray); font-size: 13px; margin-bottom: 10px; font-weight: 600;">
+                            <i class="fas fa-circle" style="color: var(--color-green); margin-right: 5px;"></i>
+                            Boarding Terminal (Origin)
+                        </label>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; position: relative; z-index: 1;" id="originTerminalList">
+                            <button type="button" class="origin-terminal-btn" data-terminal-index="0" onclick="selectOriginTerminal(0)" style="padding: 12px; text-align: center; border: 2px solid #ECF0F1; background: white; cursor: pointer; transition: all 0.3s; border-radius: 8px; min-width: 100px; width: 100%; position: relative; z-index: 10; pointer-events: auto; touch-action: manipulation;">
+                                <div style="font-weight: 600; color: #2C3E50; font-size: 14px; pointer-events: none;">Terminal 1</div>
+                            </button>
+                            <button type="button" class="origin-terminal-btn" data-terminal-index="1" onclick="selectOriginTerminal(1)" style="padding: 12px; text-align: center; border: 2px solid #ECF0F1; background: white; cursor: pointer; transition: all 0.3s; border-radius: 8px; min-width: 100px; width: 100%; position: relative; z-index: 10; pointer-events: auto; touch-action: manipulation;">
+                                <div style="font-weight: 600; color: #2C3E50; font-size: 14px; pointer-events: none;">Terminal 2</div>
+                            </button>
+                            <button type="button" class="origin-terminal-btn" data-terminal-index="2" onclick="selectOriginTerminal(2)" style="padding: 12px; text-align: center; border: 2px solid #ECF0F1; background: white; cursor: pointer; transition: all 0.3s; border-radius: 8px; min-width: 100px; width: 100%; position: relative; z-index: 10; pointer-events: auto; touch-action: manipulation;">
+                                <div style="font-weight: 600; color: #2C3E50; font-size: 14px; pointer-events: none;">Terminal 3</div>
+                            </button>
+                            <button type="button" class="origin-terminal-btn" data-terminal-index="3" onclick="selectOriginTerminal(3)" style="padding: 12px; text-align: center; border: 2px solid #ECF0F1; background: white; cursor: pointer; transition: all 0.3s; border-radius: 8px; min-width: 100px; width: 100%; position: relative; z-index: 10; pointer-events: auto; touch-action: manipulation;">
+                                <div style="font-weight: 600; color: #2C3E50; font-size: 14px; pointer-events: none;">Terminal 4</div>
+                            </button>
+                            <button type="button" class="origin-terminal-btn" data-terminal-index="4" onclick="selectOriginTerminal(4)" style="padding: 12px; text-align: center; border: 2px solid #ECF0F1; background: white; cursor: pointer; transition: all 0.3s; border-radius: 8px; min-width: 100px; width: 100%; position: relative; z-index: 10; pointer-events: auto; touch-action: manipulation;">
+                                <div style="font-weight: 600; color: #2C3E50; font-size: 14px; pointer-events: none;">Terminal 5</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Destination Terminal Selection -->
+                    <div>
+                        <label style="display: block; color: var(--color-gray); font-size: 13px; margin-bottom: 10px; font-weight: 600;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--color-red); margin-right: 5px;"></i>
+                            Drop-off Terminal (Destination)
+                        </label>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px;" id="terminalList">
+                            <p style="grid-column: 1 / -1; text-align: center; color: var(--color-gray); padding: 20px;">
+                                Please select your boarding terminal first
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Display -->
+            <div style="background: white; padding: 40px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-sm); text-align: center;">
+                <div id="statusDisplay">
+                    <div style="font-size: 64px; margin-bottom: 20px; color: var(--color-gray);" id="statusIcon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 10px; color: var(--color-navy);" id="statusText">Ready to Board</h2>
+                    <p style="color: var(--color-gray); font-size: 16px; margin-bottom: 20px;" id="statusInfo">Select a terminal and tap your card</p>
+            <div id="additionalInfo"></div>
+                </div>
+        </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <button class="btn btn-primary" id="tapInBtn" onclick="handleTapIn()" style="flex: 1; padding: 18px; font-size: 16px;">
+                <i class="fas fa-sign-in-alt"></i> Tap In
+            </button>
+                <button class="btn" id="extendBtn" onclick="openExtendModal()" style="flex: 1; padding: 18px; font-size: 16px; background: var(--color-yellow); color: white; display: none;">
+                    <i class="fas fa-route"></i> Change Terminal
+                </button>
+                <button class="btn" id="tapOutBtn" onclick="handleTapOut()" disabled style="flex: 1; padding: 18px; font-size: 16px; background: var(--color-blue); color: white;">
+                <i class="fas fa-sign-out-alt"></i> Tap Out
+            </button>
+                <button class="btn btn-secondary" onclick="resetTerminal()" style="flex: 1; padding: 18px; font-size: 16px;">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+            </div>
+        </main>
+        </div>
+
+    <!-- Extend Terminal Modal -->
+    <div class="modal" id="extendModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Change Drop-off Terminal</h3>
+                <button class="close-modal" onclick="closeExtendModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="padding: 20px 0;">
+                <p style="color: var(--color-gray); margin-bottom: 15px;">Select a farther terminal to extend your trip:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px;" id="extendTerminalList"></div>
+                <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px;">
+                    <p style="margin: 0; font-size: 14px; color: #333;">
+                        <strong>Current Terminal:</strong> <span id="currentTerminalDisplay"></span><br>
+                        <strong>Additional Fare:</strong> <span id="additionalFareDisplay">₱0.00</span>
+                    </p>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="button" class="btn btn-primary" onclick="confirmExtendTerminal()" style="flex: 1;">
+                        <i class="fas fa-check"></i> Confirm Change
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeExtendModal()" style="flex: 1;">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // System State
+        let isTappedIn = false;
+        let currentBalance = 250.00;
+        let originTerminal = null;
+        let originTerminalIndex = null;
+        let selectedTerminal = null;
+        let currentTerminalIndex = null;
+        let assignedSeat = null;
+        
+        // Sync balance from dashboard if available
+        const balanceUpdate = localStorage.getItem('balanceUpdate');
+        if (balanceUpdate) {
+            const data = JSON.parse(balanceUpdate);
+            currentBalance = data.balance;
+        }
+        
+        // Terminal Configuration
+        // Each terminal has a position/distance from start (km)
+        const terminals = [
+            { name: 'Terminal 1', position: 0, distance: 0 },
+            { name: 'Terminal 2', position: 2, distance: 2 },
+            { name: 'Terminal 3', position: 4, distance: 4 },
+            { name: 'Terminal 4', position: 6, distance: 6 },
+            { name: 'Terminal 5', position: 8, distance: 8 }
+        ];
+        
+        // Jeepney Route Configuration
+        // Defines which route the jeepney serves (start terminal to end terminal)
+        const jeepneyRoute = {
+            id: 'ABC-1234',
+            routeName: 'Route 1',
+            startTerminal: 0,  // Terminal 1
+            endTerminal: 4,    // Terminal 5
+            direction: 'forward' // forward: Terminal 1→5, backward: Terminal 5→1
+        };
+        
+        // Fare calculation: Base fare + (distance in km * rate per km)
+        const BASE_FARE = 10.00;
+        const RATE_PER_KM = 2.50;
+        
+        function calculateFare(originIndex, destinationIndex) {
+            if (originIndex >= destinationIndex) return 0; // Invalid route
+            const distance = terminals[destinationIndex].position - terminals[originIndex].position;
+            return BASE_FARE + (distance * RATE_PER_KM);
+        }
+        
+        // Check if commuter's route matches jeepney route
+        function isRouteMatch(commuterOriginIndex, commuterDestinationIndex) {
+            if (commuterOriginIndex === null || commuterDestinationIndex === null) {
+                return false;
+            }
+            
+            // Check if route is in forward direction (Terminal 1 → Terminal 5)
+            if (jeepneyRoute.direction === 'forward') {
+                // Commuter must be going in the same direction (origin < destination)
+                // And both origin and destination must be within jeepney route range
+                if (commuterOriginIndex < commuterDestinationIndex &&
+                    commuterOriginIndex >= jeepneyRoute.startTerminal &&
+                    commuterDestinationIndex <= jeepneyRoute.endTerminal) {
+                    return true;
+                }
+            } else {
+                // Backward direction (Terminal 5 → Terminal 1)
+                if (commuterOriginIndex > commuterDestinationIndex &&
+                    commuterOriginIndex <= jeepneyRoute.endTerminal &&
+                    commuterDestinationIndex >= jeepneyRoute.startTerminal) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        // Seat Management
+        const totalSeats = 2;
+        let occupiedSeats = 0; // Current occupied seats
+        
+        // Define selectOriginTerminal early so it's available for onclick handlers
+        // This must be defined before the HTML tries to use it
+        window.selectOriginTerminal = function(index) {
+            if (typeof terminals === 'undefined' || !terminals || index < 0 || index >= terminals.length) {
+                console.error('Invalid terminal index:', index);
+                return;
+            }
+            
+            console.log('Selecting origin terminal:', index, terminals[index].name);
+            
+            // Remove previous selection
+            document.querySelectorAll('.origin-terminal-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.borderColor = '#ECF0F1';
+                btn.style.background = 'white';
+            });
+            
+            // Select origin terminal
+            originTerminal = terminals[index];
+            originTerminalIndex = index;
+            
+            // Find the button by data attribute instead of index
+            const selectedBtn = document.querySelector(`.origin-terminal-btn[data-terminal-index="${index}"]`);
+            if (selectedBtn) {
+                selectedBtn.classList.add('selected');
+                selectedBtn.style.borderColor = '#27AE60';
+                selectedBtn.style.background = '#f0f9f4';
+                console.log('Button selected successfully');
+            } else {
+                console.error('Could not find button for terminal index:', index);
+            }
+            
+            // Reset destination selection
+            selectedTerminal = null;
+            currentTerminalIndex = null;
+            
+            // Clear waiting status
+            if (typeof clearWaitingPassenger === 'function') {
+                clearWaitingPassenger();
+            }
+            
+            // Update destination terminals (only show terminals after origin)
+            if (typeof initializeDestinationTerminals === 'function') {
+                initializeDestinationTerminals();
+            }
+            
+            // Update jeepney info visibility
+            if (typeof updateJeepneyInfo === 'function') {
+                updateJeepneyInfo();
+            }
+        };
+        
+        // Initialize
+        function initTerminal() {
+            initializeOriginTerminals();
+            updateSeatsDisplay();
+            updateBalance();
+            updateStatus('ready');
+            updateJeepneyInfo(); // Start with jeepney info hidden
+            
+            // Check for active trip
+            const activeTrip = localStorage.getItem('activeTrip');
+            if (activeTrip) {
+                const trip = JSON.parse(activeTrip);
+                if (trip.isActive) {
+                    isTappedIn = true;
+                    originTerminal = terminals.find(t => t.name === trip.originTerminal || trip.from);
+                    originTerminalIndex = terminals.findIndex(t => t.name === trip.originTerminal || trip.from);
+                    selectedTerminal = terminals.find(t => t.name === trip.dropOffTerminal);
+                    currentTerminalIndex = terminals.findIndex(t => t.name === trip.dropOffTerminal);
+                    assignedSeat = trip.seat;
+                    
+                    document.getElementById('tapInBtn').disabled = true;
+                    document.getElementById('tapOutBtn').disabled = false;
+                    document.getElementById('extendBtn').style.display = 'block';
+                    
+                    updateStatus('valid');
+                    updateJeepneyInfo(); // Update jeepney info for active trip
+                }
+            }
+        }
+        
+        // Run initialization when DOM is ready
+        function ensureInitialized() {
+            const originList = document.getElementById('originTerminalList');
+            if (!originList) {
+                console.log('Origin list not found, retrying...');
+                // Retry after a short delay
+                setTimeout(ensureInitialized, 100);
+                return;
+            }
+            console.log('Initializing terminal...');
+            initTerminal();
+        }
+        
+        // Use window.onload to ensure everything is ready
+        window.addEventListener('load', function() {
+            console.log('Window loaded, starting initialization...');
+            ensureInitialized();
+        });
+        
+        // Also try immediate initialization if DOM is already ready
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            setTimeout(ensureInitialized, 100);
+        }
+        
+        function initializeOriginTerminals() {
+            const originList = document.getElementById('originTerminalList');
+            if (!originList) {
+                console.error('Origin terminal list element not found');
+                setTimeout(initializeOriginTerminals, 100);
+                return;
+            }
+            
+            // Attach event listeners to existing buttons (they're already in HTML)
+            const existingButtons = originList.querySelectorAll('.origin-terminal-btn');
+            
+            if (existingButtons.length > 0) {
+                // Buttons already exist in HTML, enhance them with event listeners
+                existingButtons.forEach((btn, index) => {
+                    const terminalIndex = parseInt(btn.getAttribute('data-terminal-index')) || index;
+                    
+                    // Ensure onclick is set
+                    if (!btn.onclick) {
+                        btn.setAttribute('onclick', `selectOriginTerminal(${terminalIndex})`);
+                    }
+                    
+                    // Add additional click handler as backup
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Button clicked:', terminalIndex);
+                        selectOriginTerminal(terminalIndex);
+                    }, true);
+                    
+                    // Add hover effects
+                    btn.addEventListener('mouseenter', function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.borderColor = '#3498DB';
+                            this.style.background = '#f0f7ff';
+                        }
+                    });
+                    
+                    btn.addEventListener('mouseleave', function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.borderColor = '#ECF0F1';
+                            this.style.background = 'white';
+                        }
+                    });
+                    
+                    // Ensure button is clickable
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.cursor = 'pointer';
+                    btn.style.zIndex = '10';
+                });
+                console.log(`Enhanced ${existingButtons.length} origin terminal buttons with event listeners`);
+            } else {
+                // No buttons found, create them dynamically
+                if (!terminals || terminals.length === 0) {
+                    console.error('Terminals array is not defined or empty');
+                    return;
+                }
+                
+                originList.innerHTML = '';
+                terminals.forEach((terminal, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'origin-terminal-btn';
+                    btn.type = 'button';
+                    btn.setAttribute('data-terminal-index', index);
+                    btn.setAttribute('onclick', `selectOriginTerminal(${index})`);
+                    btn.style.cssText = 'padding: 12px; text-align: center; border: 2px solid #ECF0F1; background: white; cursor: pointer; transition: all 0.3s; border-radius: 8px; min-width: 100px; width: 100%; position: relative; z-index: 10; pointer-events: auto; touch-action: manipulation;';
+                    btn.innerHTML = `<div style="font-weight: 600; color: #2C3E50; font-size: 14px; pointer-events: none;">${terminal.name}</div>`;
+                    
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        selectOriginTerminal(index);
+                    }, true);
+                    
+                    btn.addEventListener('mouseenter', function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.borderColor = '#3498DB';
+                            this.style.background = '#f0f7ff';
+                        }
+                    });
+                    
+                    btn.addEventListener('mouseleave', function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.borderColor = '#ECF0F1';
+                            this.style.background = 'white';
+                        }
+                    });
+                    
+                    originList.appendChild(btn);
+                });
+                console.log(`Created ${terminals.length} origin terminal buttons dynamically`);
+            }
+        }
+        
+        
+        function initializeDestinationTerminals() {
+            const terminalList = document.getElementById('terminalList');
+            if (!terminalList) {
+                console.error('Terminal list element not found');
+                return;
+            }
+            
+            terminalList.innerHTML = '';
+            
+            if (originTerminalIndex === null) {
+                terminalList.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-gray); padding: 20px;">Please select your boarding terminal first</p>';
+                return;
+            }
+            
+            if (!terminals || terminals.length === 0) {
+                terminalList.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-red); padding: 20px;">Error: Terminals not loaded</p>';
+                return;
+            }
+            
+            // Only show terminals that are after the origin terminal
+            let destinationCount = 0;
+            terminals.forEach((terminal, index) => {
+                if (index > originTerminalIndex) {
+                    const fare = calculateFare(originTerminalIndex, index);
+                    const distance = terminal.position - terminals[originTerminalIndex].position;
+                    
+                    const btn = document.createElement('button');
+                    btn.className = 'terminal-btn';
+                    btn.type = 'button';
+                    btn.style.cssText = 'padding: 15px; text-align: center; border: 2px solid #ECF0F1; background: white; cursor: pointer; transition: all 0.3s; border-radius: 8px; width: 100%; position: relative; z-index: 2; pointer-events: auto;';
+                    btn.innerHTML = `
+                        <div style="font-weight: 600; color: #2C3E50; margin-bottom: 5px; font-size: 14px; pointer-events: none;">${terminal.name}</div>
+                        <div style="font-size: 18px; font-weight: 700; color: #F39C12; pointer-events: none;">₱${fare.toFixed(2)}</div>
+                        <div style="font-size: 11px; color: #95A5A6; margin-top: 3px; pointer-events: none;">${distance} km</div>
+                    `;
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        selectDestinationTerminal(index);
+                    }, true);
+                    btn.onmouseenter = function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.borderColor = '#3498DB';
+                            this.style.background = '#f0f7ff';
+                        }
+                    };
+                    btn.onmouseleave = function() {
+                        if (!this.classList.contains('selected')) {
+                            this.style.borderColor = '#ECF0F1';
+                            this.style.background = 'white';
+                        }
+                    };
+                    terminalList.appendChild(btn);
+                    destinationCount++;
+                }
+            });
+            
+            if (destinationCount === 0) {
+                terminalList.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-gray); padding: 20px;">No destinations available from this terminal</p>';
+            } else {
+                console.log(`Created ${destinationCount} destination terminal buttons`);
+            }
+        }
+        
+        function selectDestinationTerminal(index) {
+            if (index < 0 || index >= terminals.length) {
+                console.error('Invalid destination terminal index:', index);
+                return;
+            }
+            
+            if (originTerminalIndex === null) {
+                alert('Please select an origin terminal first!');
+                return;
+            }
+            
+            // Remove previous selection
+            document.querySelectorAll('.terminal-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.borderColor = '#ECF0F1';
+                btn.style.background = 'white';
+            });
+            
+            // Select destination terminal
+            selectedTerminal = terminals[index];
+            currentTerminalIndex = index;
+            const fare = calculateFare(originTerminalIndex, index);
+            
+            // Find the button - it's the (index - originTerminalIndex - 1)th button in the list
+            const terminalButtons = document.querySelectorAll('.terminal-btn');
+            const buttonIndex = index - originTerminalIndex - 1;
+            
+            if (buttonIndex >= 0 && buttonIndex < terminalButtons.length) {
+                const selectedBtn = terminalButtons[buttonIndex];
+                selectedBtn.classList.add('selected');
+                selectedBtn.style.borderColor = '#27AE60';
+                selectedBtn.style.background = '#f0f9f4';
+            } else {
+                console.error('Could not find destination button for index:', index, 'buttonIndex:', buttonIndex);
+            }
+            
+            // Update jeepney info visibility based on route match
+            updateJeepneyInfo();
+            
+            // Check if route matches before allowing tap-in
+            const routeMatches = isRouteMatch(originTerminalIndex, currentTerminalIndex);
+            
+            if (routeMatches) {
+                // Update status to waiting
+                const distance = terminals[index].position - terminals[originTerminalIndex].position;
+                updateStatus('waiting', `${originTerminal.name} → ${selectedTerminal.name} - Fare: ₱${fare.toFixed(2)} (${distance} km)`);
+                
+                // Enable tap-in button
+                document.getElementById('tapInBtn').disabled = false;
+                
+                // Broadcast waiting passenger (only if seats available)
+                broadcastWaitingPassenger();
+            } else {
+                // Route doesn't match - show message
+                updateStatus('ready', 'Selected route does not match available jeepney route. Please select a different route.');
+                document.getElementById('tapInBtn').disabled = true;
+            }
+        }
+        
+        function updateJeepneyInfo() {
+            const jeepneyCard = document.getElementById('jeepneyInfoCard');
+            const noJeepneyCard = document.getElementById('noJeepneyCard');
+            
+            // Check if route matches
+            const routeMatches = isRouteMatch(originTerminalIndex, currentTerminalIndex);
+            
+            if (routeMatches && originTerminalIndex !== null && currentTerminalIndex !== null) {
+                // Show jeepney info
+                jeepneyCard.style.display = 'block';
+                noJeepneyCard.style.display = 'none';
+                
+                document.getElementById('jeepneyId').textContent = jeepneyRoute.id;
+                document.getElementById('jeepneyRoute').textContent = jeepneyRoute.routeName;
+                
+                const routeDirection = jeepneyRoute.direction === 'forward' 
+                    ? `${terminals[jeepneyRoute.startTerminal].name} → ${terminals[jeepneyRoute.endTerminal].name}`
+                    : `${terminals[jeepneyRoute.endTerminal].name} → ${terminals[jeepneyRoute.startTerminal].name}`;
+                document.getElementById('jeepneyRouteDirection').textContent = routeDirection;
+                
+                updateAvailableSeats();
+            } else if (originTerminalIndex !== null && currentTerminalIndex !== null) {
+                // Route doesn't match - show no jeepney message
+                jeepneyCard.style.display = 'none';
+                noJeepneyCard.style.display = 'block';
+            } else {
+                // No route selected yet - hide both
+                jeepneyCard.style.display = 'none';
+                noJeepneyCard.style.display = 'none';
+            }
+        }
+        
+        function updateAvailableSeats() {
+            const available = totalSeats - occupiedSeats;
+            document.getElementById('availableSeats').textContent = `${available} / ${totalSeats}`;
+        }
+        
+        function updateSeatsDisplay() {
+            const indicator = document.getElementById('seatsIndicator');
+            indicator.innerHTML = '';
+            
+            for (let i = 1; i <= totalSeats; i++) {
+                const seat = document.createElement('div');
+                seat.style.cssText = 'width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;';
+                seat.textContent = i;
+                
+                if (i <= occupiedSeats) {
+                    seat.style.background = '#E74C3C';
+                    seat.style.color = 'white';
+                } else {
+                    seat.style.background = '#27AE60';
+                    seat.style.color = 'white';
+                }
+                
+                indicator.appendChild(seat);
+            }
+        }
+        
+        function updateBalance() {
+            document.getElementById('cardBalance').textContent = `₱${currentBalance.toFixed(2)}`;
+        }
+        
+        function updateStatus(status, info = '') {
+            const statusIcon = document.getElementById('statusIcon');
+            const statusText = document.getElementById('statusText');
+            const statusInfo = document.getElementById('statusInfo');
+            const additionalInfo = document.getElementById('additionalInfo');
+
+            statusIcon.style.color = 'var(--color-gray)';
+            statusText.style.color = 'var(--color-navy)';
+            
+            switch(status) {
+                case 'ready':
+                    statusIcon.innerHTML = '<i class="fas fa-credit-card"></i>';
+                    statusIcon.style.color = 'var(--color-gray)';
+                    statusText.textContent = 'Ready to Board';
+                    statusInfo.textContent = info || 'Select your boarding and drop-off terminals';
+                    additionalInfo.innerHTML = '';
+                    break;
+                    
+                case 'waiting':
+                    const waitingFare = selectedTerminal ? calculateFare(originTerminalIndex, currentTerminalIndex) : 0;
+                    const waitingDistance = selectedTerminal ? (selectedTerminal.position - originTerminal.position) : 0;
+                    statusIcon.innerHTML = '<i class="fas fa-clock"></i>';
+                    statusIcon.style.color = 'var(--color-yellow)';
+                    statusIcon.style.animation = 'pulse 2s infinite';
+                    statusText.textContent = 'WAITING TO BOARD';
+                    statusText.style.color = 'var(--color-yellow)';
+                    statusInfo.textContent = info || 'Ready to tap in when jeepney arrives';
+                    additionalInfo.innerHTML = `
+                        <div style="margin-top: 20px; padding: 20px; background: #fff9e6; border-radius: 10px; border: 2px solid var(--color-yellow);">
+                            <div style="font-size: 18px; font-weight: 600; color: var(--color-navy); margin-bottom: 8px;">
+                                ${originTerminal.name} → ${selectedTerminal.name}
+                            </div>
+                            <div style="font-size: 20px; font-weight: 700; color: var(--color-yellow); margin-bottom: 8px;">
+                                Fare: ₱${waitingFare.toFixed(2)}
+                            </div>
+                            <div style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">
+                                Distance: ${waitingDistance} km
+                            </div>
+                            <div style="color: var(--color-gray); font-size: 13px; font-style: italic;">
+                                <i class="fas fa-info-circle"></i> Tap your card when the jeepney arrives
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'valid':
+                    const fare = selectedTerminal ? calculateFare(originTerminalIndex, currentTerminalIndex) : 0;
+                statusIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    statusIcon.style.color = 'var(--color-green)';
+                    statusText.textContent = 'BOARDED';
+                    statusText.style.color = 'var(--color-green)';
+                    statusInfo.textContent = `Seat ${assignedSeat} assigned`;
+                additionalInfo.innerHTML = `
+                        <div style="margin-top: 20px; padding: 20px; background: #f0f9f4; border-radius: 10px;">
+                            <div style="font-size: 20px; font-weight: 600; color: var(--color-navy); margin-bottom: 8px;">
+                                ${originTerminal.name} → ${selectedTerminal.name}
+                            </div>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--color-yellow); margin-bottom: 10px;">
+                                Fare: ₱${fare.toFixed(2)}
+                            </div>
+                            <div style="color: var(--color-gray); font-size: 14px;">
+                                Balance: ₱${currentBalance.toFixed(2)}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'invalid':
+                    const requiredFare = selectedTerminal ? calculateFare(originTerminalIndex, currentTerminalIndex) : 0;
+                statusIcon.innerHTML = '<i class="fas fa-times-circle"></i>';
+                    statusIcon.style.color = 'var(--color-red)';
+                statusText.textContent = 'INVALID';
+                    statusText.style.color = 'var(--color-red)';
+                    statusInfo.textContent = info || 'Insufficient Balance';
+                additionalInfo.innerHTML = `
+                        <div style="margin-top: 20px; padding: 20px; background: #fef0f0; border-radius: 10px;">
+                            <div style="color: var(--color-red); font-size: 18px; margin-bottom: 10px;">
+                                Required: ₱${requiredFare.toFixed(2)}
+                    </div>
+                            <div style="color: var(--color-red); font-size: 24px; font-weight: 600;">
+                        Balance: ₱${currentBalance.toFixed(2)}
+                            </div>
+                    </div>
+                `;
+                    break;
+                    
+                case 'tapped-out':
+                    statusIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    statusIcon.style.color = 'var(--color-blue)';
+                    statusText.textContent = 'TAP OUT SUCCESSFUL';
+                    statusText.style.color = 'var(--color-blue)';
+                    statusInfo.textContent = 'Thank you for riding!';
+                    break;
+            }
+        }
+        
+        // Make functions globally accessible
+        window.handleTapIn = function() {
+            if (!originTerminal || originTerminalIndex === null) {
+                alert('Please select your boarding terminal first!');
+                return;
+            }
+            
+            if (!selectedTerminal) {
+                alert('Please select a drop-off terminal!');
+                return;
+            }
+            
+            // Check if route matches
+            if (!isRouteMatch(originTerminalIndex, currentTerminalIndex)) {
+                alert('Selected route does not match the available jeepney route. Please select a matching route.');
+                return;
+            }
+            
+            if (occupiedSeats >= totalSeats) {
+                alert('No available seats!');
+                return;
+            }
+            
+            // Calculate fare based on origin and destination
+            const fare = calculateFare(originTerminalIndex, currentTerminalIndex);
+            
+            // Check balance
+            if (currentBalance < fare) {
+                updateStatus('invalid', `Required: ₱${fare.toFixed(2)}`);
+                return;
+            }
+            
+            // Deduct fare
+            currentBalance -= fare;
+            updateBalance();
+            broadcastBalanceUpdate();
+            
+            // Assign seat
+            occupiedSeats++;
+            assignedSeat = occupiedSeats;
+            updateAvailableSeats();
+            updateSeatsDisplay();
+            
+            // Update UI
+            isTappedIn = true;
+            updateStatus('valid');
+            
+            // Disable tap-in, enable tap-out and extend
+            document.getElementById('tapInBtn').disabled = true;
+            document.getElementById('tapOutBtn').disabled = false;
+            document.getElementById('extendBtn').style.display = 'block';
+            
+            // Clear waiting status
+            clearWaitingPassenger();
+            
+            // Broadcast to other interfaces (simulated)
+            broadcastSeatUpdate();
+            broadcastBoarding(originTerminal.name, selectedTerminal.name, fare);
+        }
+        
+        window.handleTapOut = function() {
+            if (!isTappedIn) {
+                alert('Please tap in first!');
+                return;
+            }
+
+            // Free seat
+            if (assignedSeat) {
+                occupiedSeats--;
+                updateAvailableSeats();
+                updateSeatsDisplay();
+                assignedSeat = null;
+            }
+            
+            // Calculate distance travelled
+            const distance = selectedTerminal.position - originTerminal.position;
+            const fare = calculateFare(originTerminalIndex, currentTerminalIndex);
+            
+            // Update status
+            updateStatus('tapped-out');
+            document.getElementById('additionalInfo').innerHTML = `
+                <div style="margin-top: 20px; padding: 20px; background: #f0f7ff; border-radius: 10px;">
+                    <div style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">
+                        Route: ${originTerminal.name} → ${selectedTerminal.name}
+                    </div>
+                    <div style="color: var(--color-gray); font-size: 14px; margin-bottom: 10px;">
+                        Distance: ${distance} km
+                    </div>
+                    <div style="color: var(--color-gray); font-size: 14px; margin-bottom: 15px;">
+                        Fare Paid: ₱${fare.toFixed(2)}
+                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--color-blue);">
+                        Balance: ₱${currentBalance.toFixed(2)}
+                    </div>
+                </div>
+            `;
+            
+            // Reset state
+            isTappedIn = false;
+            originTerminal = null;
+            originTerminalIndex = null;
+            selectedTerminal = null;
+            currentTerminalIndex = null;
+            
+            // Update buttons
+            document.getElementById('tapInBtn').disabled = false;
+            document.getElementById('tapOutBtn').disabled = true;
+            document.getElementById('extendBtn').style.display = 'none';
+            
+            // Reset terminal selections
+            document.querySelectorAll('.origin-terminal-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.borderColor = 'var(--color-light)';
+                btn.style.background = 'white';
+            });
+            document.querySelectorAll('.terminal-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.borderColor = 'var(--color-light)';
+                btn.style.background = 'white';
+            });
+            
+            // Reset destination list
+            initializeDestinationTerminals();
+            
+            // Clear waiting status
+            clearWaitingPassenger();
+            
+            // Broadcast
+            broadcastAlighting();
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                if (!isTappedIn) {
+                    updateStatus('ready');
+                }
+            }, 3000);
+        }
+        
+        window.openExtendModal = function() {
+            if (!isTappedIn || !selectedTerminal) return;
+            
+            const modal = document.getElementById('extendModal');
+            const extendList = document.getElementById('extendTerminalList');
+            const currentTerminalDisplay = document.getElementById('currentTerminalDisplay');
+            const additionalFareDisplay = document.getElementById('additionalFareDisplay');
+            
+            currentTerminalDisplay.textContent = selectedTerminal.name;
+            additionalFareDisplay.textContent = '₱0.00';
+            window.selectedExtendTerminal = null;
+            
+            extendList.innerHTML = '';
+            
+            // Show only terminals farther than current destination
+            terminals.forEach((terminal, index) => {
+                if (index > currentTerminalIndex) {
+                    const newFare = calculateFare(originTerminalIndex, index);
+                    const currentFare = calculateFare(originTerminalIndex, currentTerminalIndex);
+                    const additionalFare = newFare - currentFare;
+                    const distance = terminal.position - selectedTerminal.position;
+                    
+                    const btn = document.createElement('button');
+                    btn.className = 'btn btn-secondary';
+                    btn.style.cssText = 'padding: 15px; text-align: center; border: 2px solid var(--color-light); background: white;';
+                    btn.innerHTML = `
+                        <div style="font-weight: 600; color: var(--color-navy); margin-bottom: 5px;">${terminal.name}</div>
+                        <div style="font-size: 18px; font-weight: 700; color: var(--color-yellow);">+₱${additionalFare.toFixed(2)}</div>
+                        <div style="font-size: 11px; color: var(--color-gray); margin-top: 3px;">+${distance} km</div>
+                    `;
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        document.querySelectorAll('#extendTerminalList .btn').forEach(b => {
+                            b.classList.remove('selected');
+                            b.style.borderColor = 'var(--color-light)';
+                            b.style.background = 'white';
+                        });
+                        btn.classList.add('selected');
+                        btn.style.borderColor = 'var(--color-green)';
+                        btn.style.background = '#f0f9f4';
+                        additionalFareDisplay.textContent = `₱${additionalFare.toFixed(2)}`;
+                        window.selectedExtendTerminal = { terminal, index, additionalFare, newFare };
+                    }, true);
+                    extendList.appendChild(btn);
+                }
+            });
+            
+            modal.classList.add('active');
+        }
+        
+        window.closeExtendModal = function() {
+            document.getElementById('extendModal').classList.remove('active');
+            window.selectedExtendTerminal = null;
+        }
+        
+        window.confirmExtendTerminal = function() {
+            if (!window.selectedExtendTerminal) {
+                alert('Please select a terminal to extend to');
+                return;
+            }
+            
+            const { terminal, additionalFare, newFare } = window.selectedExtendTerminal;
+            
+            if (currentBalance < additionalFare) {
+                alert(`Insufficient balance. Additional fare required: ₱${additionalFare.toFixed(2)}`);
+                return;
+            }
+            
+            // Deduct additional fare
+            currentBalance -= additionalFare;
+            updateBalance();
+            broadcastBalanceUpdate();
+            
+            // Update selected terminal
+            selectedTerminal = terminal;
+            currentTerminalIndex = window.selectedExtendTerminal.index;
+            
+            // Update active trip
+            const activeTrip = localStorage.getItem('activeTrip');
+            if (activeTrip) {
+                const trip = JSON.parse(activeTrip);
+                localStorage.setItem('activeTrip', JSON.stringify({
+                    ...trip,
+                    dropOffTerminal: terminal.name,
+                    fare: newFare
+                }));
+            }
+            
+            // Update status
+            const distance = terminal.position - originTerminal.position;
+            updateStatus('valid', `Terminal changed to ${terminal.name}`);
+            document.getElementById('additionalInfo').innerHTML = `
+                <div style="margin-top: 20px; padding: 20px; background: #f0f9f4; border-radius: 10px;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--color-yellow); margin-bottom: 10px;">
+                        Additional Fare: ₱${additionalFare.toFixed(2)}
+                    </div>
+                    <div style="color: var(--color-gray); font-size: 14px; margin-bottom: 5px;">
+                        Total Fare: ₱${newFare.toFixed(2)} (${distance} km)
+                    </div>
+                    <div style="color: var(--color-gray); font-size: 14px;">
+                        Balance: ₱${currentBalance.toFixed(2)}
+                    </div>
+                </div>
+            `;
+            
+            closeExtendModal();
+        }
+
+        window.resetTerminal = function() {
+            if (isTappedIn) {
+                if (!confirm('You are currently on board. Are you sure you want to reset?')) {
+                    return;
+                }
+                // Free seat if tapped in
+                if (assignedSeat) {
+                    occupiedSeats--;
+                    updateSeatsDisplay();
+                }
+            }
+            
+            isTappedIn = false;
+            originTerminal = null;
+            originTerminalIndex = null;
+            selectedTerminal = null;
+            currentTerminalIndex = null;
+            assignedSeat = null;
+            
+            updateStatus('ready');
+            updateBalance();
+            
+            document.getElementById('tapInBtn').disabled = false;
+            document.getElementById('tapOutBtn').disabled = true;
+            document.getElementById('extendBtn').style.display = 'none';
+            
+            // Reset all terminal selections
+            document.querySelectorAll('.origin-terminal-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.borderColor = 'var(--color-light)';
+                btn.style.background = 'white';
+            });
+            document.querySelectorAll('.terminal-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.borderColor = 'var(--color-light)';
+                btn.style.background = 'white';
+            });
+            
+            // Reset destination list
+            initializeDestinationTerminals();
+            
+            // Clear waiting status
+            clearWaitingPassenger();
+        }
+        
+        // Add CSS animation for waiting state and button fixes
+        const terminalStyle = document.createElement('style');
+        terminalStyle.textContent = `
+            @keyframes pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.7; transform: scale(1.05); }
+            }
+            
+            /* Ensure all buttons are clickable */
+            .origin-terminal-btn,
+            .terminal-btn,
+            .btn {
+                position: relative;
+                z-index: 10 !important;
+                pointer-events: auto !important;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .origin-terminal-btn:hover {
+                border-color: #3498DB !important;
+                background: #f0f7ff !important;
+            }
+            
+            .origin-terminal-btn:active,
+            .terminal-btn:active {
+                transform: scale(0.98);
+            }
+            
+            .origin-terminal-btn.selected,
+            .terminal-btn.selected {
+                border-color: #27AE60 !important;
+                background: #f0f9f4 !important;
+                box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2) !important;
+            }
+            
+            /* Ensure no overlay blocks buttons */
+            #originTerminalList {
+                position: relative;
+                z-index: 1;
+            }
+            
+            #originTerminalList > * {
+                position: relative;
+                z-index: 10;
+            }
+            
+            /* Fix modal z-index */
+            .modal {
+                z-index: 1000;
+            }
+            
+            .modal-content {
+                z-index: 1001;
+                pointer-events: auto;
+            }
+            
+            /* Ensure grid containers don't block clicks */
+            #originTerminalList,
+            #terminalList,
+            #extendTerminalList {
+                position: relative;
+                z-index: 1;
+            }
+        `;
+        document.head.appendChild(terminalStyle);
+        
+        // Broadcast functions (simulated - in production would use WebSocket/API)
+        function broadcastSeatUpdate() {
+            localStorage.setItem('seatUpdate', JSON.stringify({
+                occupied: occupiedSeats,
+                total: totalSeats,
+                timestamp: Date.now()
+            }));
+        }
+        
+        function broadcastBoarding(origin, destination, fare) {
+            localStorage.setItem('boarding', JSON.stringify({
+                terminal: destination,
+                origin: origin,
+                timestamp: Date.now()
+            }));
+            
+            // Broadcast active trip to dashboard
+            localStorage.setItem('activeTrip', JSON.stringify({
+                isActive: true,
+                originTerminal: origin,
+                dropOffTerminal: destination,
+                seat: assignedSeat,
+                fare: fare,
+                currentLocation: origin,
+                from: origin,
+                timestamp: Date.now()
+            }));
+        }
+        
+        function broadcastAlighting() {
+            const terminal = selectedTerminal ? selectedTerminal.name : 'Unknown';
+            localStorage.setItem('alighting', JSON.stringify({
+                terminal: terminal,
+                timestamp: Date.now()
+            }));
+            
+            // Mark trip as completed
+            const activeTrip = localStorage.getItem('activeTrip');
+            if (activeTrip) {
+                const trip = JSON.parse(activeTrip);
+                localStorage.setItem('activeTrip', JSON.stringify({
+                    ...trip,
+                    isActive: false,
+                    completed: true
+                }));
+            }
+        }
+        
+        function broadcastBalanceUpdate() {
+            localStorage.setItem('balanceUpdate', JSON.stringify({
+                balance: currentBalance,
+                timestamp: Date.now()
+            }));
+        }
+        
+        function broadcastWaitingPassenger() {
+            // Check if seats are available before broadcasting
+            const seatUpdate = localStorage.getItem('seatUpdate');
+            let availableSeats = totalSeats;
+            
+            if (seatUpdate) {
+                const data = JSON.parse(seatUpdate);
+                availableSeats = data.total - data.occupied;
+            } else {
+                availableSeats = totalSeats - occupiedSeats;
+            }
+            
+            // Only broadcast if seats are available
+            if (availableSeats > 0 && originTerminal && selectedTerminal) {
+                const fare = calculateFare(originTerminalIndex, currentTerminalIndex);
+                localStorage.setItem('waitingPassenger', JSON.stringify({
+                    origin: originTerminal.name,
+                    destination: selectedTerminal.name,
+                    fare: fare,
+                    timestamp: Date.now()
+                }));
+            }
+        }
+        
+        function clearWaitingPassenger() {
+            localStorage.removeItem('waitingPassenger');
+        }
+        
+        // Close modal when clicking outside
+        const extendModal = document.getElementById('extendModal');
+        if (extendModal) {
+            extendModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeExtendModal();
+                }
+            });
+        }
+        
+        // Ensure modal close button works
+        const closeModalBtn = document.querySelector('#extendModal .close-modal');
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeExtendModal();
+            });
+        }
+        
+        // Listen for seat updates
+        setInterval(() => {
+            const seatUpdate = localStorage.getItem('seatUpdate');
+            if (seatUpdate) {
+                const data = JSON.parse(seatUpdate);
+                occupiedSeats = data.occupied;
+                updateAvailableSeats();
+                updateSeatsDisplay();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - E-Jeep Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bus"></i>
+                <h2>E-Jeep Manager</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Dashboard</h1>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="adminTotalPassengers">24</h3>
+                        <p>Total Passengers Today</p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3 id="adminRevenue">₱360</h3>
+                        <p>Revenue Today</p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱120</h3>
+                        <p>Expenses Today</p>
+                    </div>
+                    <div class="stat-icon teal">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>₱240</h3>
+                        <p>Profit Today</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fleet Seat Monitoring -->
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
+                <h3 style="margin-bottom: 20px;">Fleet Seat Monitoring</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;" id="fleetSeats"></div>
+            </div>
+
+            <!-- Terminal Analytics -->
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
+                <h3 style="margin-bottom: 20px;">Boarding & Alighting by Terminal</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;" id="adminTerminalTracking"></div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Revenue & Profit Overview</h3>
+                    <div class="chart-tabs">
+                        <button class="tab-btn active" data-period="daily">Daily</button>
+                        <button class="tab-btn" data-period="weekly">Weekly</button>
+                        <button class="tab-btn" data-period="monthly">Monthly</button>
+                        <button class="tab-btn" data-period="yearly">Yearly</button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 20px; height: 20px; background: var(--color-yellow); border-radius: 4px;"></div>
+                        <span style="font-size: 13px; color: var(--color-gray);">Revenue</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 20px; height: 20px; background: var(--color-blue); border-radius: 4px;"></div>
+                        <span style="font-size: 13px; color: var(--color-gray);">Profit</span>
+                    </div>
+                </div>
+                <div class="chart" id="revenueChart">
+                    <div class="chart-bar yellow" style="height: 60%;" title="Mon: ₱300"></div>
+                    <div class="chart-bar yellow" style="height: 70%;" title="Tue: ₱350"></div>
+                    <div class="chart-bar yellow" style="height: 55%;" title="Wed: ₱275"></div>
+                    <div class="chart-bar yellow" style="height: 80%;" title="Thu: ₱400"></div>
+                    <div class="chart-bar yellow" style="height: 90%;" title="Fri: ₱450"></div>
+                    <div class="chart-bar yellow" style="height: 100%;" title="Sat: ₱500"></div>
+                    <div class="chart-bar yellow" style="height: 72%;" title="Sun: ₱360"></div>
+                </div>
+                <div class="chart" id="profitChart" style="margin-top: -290px;">
+                    <div class="chart-bar" style="height: 50%; opacity: 0.9;" title="Mon: ₱200"></div>
+                    <div class="chart-bar" style="height: 60%; opacity: 0.9;" title="Tue: ₱250"></div>
+                    <div class="chart-bar" style="height: 45%; opacity: 0.9;" title="Wed: ₱175"></div>
+                    <div class="chart-bar" style="height: 70%; opacity: 0.9;" title="Thu: ₱300"></div>
+                    <div class="chart-bar" style="height: 80%; opacity: 0.9;" title="Fri: ₱350"></div>
+                    <div class="chart-bar" style="height: 90%; opacity: 0.9;" title="Sat: ₱400"></div>
+                    <div class="chart-bar" style="height: 62%; opacity: 0.9;" title="Sun: ₱240"></div>
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 13px; color: var(--color-gray);">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm); text-align: center;">
+                <button class="btn btn-primary" id="generateReportBtn" style="padding: 15px 40px; font-size: 16px;">
+                    <i class="fas fa-file-download"></i> Generate Report
+                </button>
+                <p style="margin-top: 15px; color: var(--color-gray); font-size: 14px;">
+                    Generate comprehensive report with testing rates: speed, functionality, and performance metrics
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Generate Report button
+        document.getElementById('generateReportBtn').addEventListener('click', function() {
+            // Simulate report generation
+            alert('Generating report...\n\nThis will include:\n- Speed metrics\n- Functionality tests\n- Performance data\n- Revenue & Profit analysis\n- Seat utilization\n- Terminal statistics');
+            
+            // In production, this would trigger actual report generation
+            console.log('Report generation triggered');
+        });
+
+        // Fleet and Terminal Monitoring
+        const fleetData = [
+            { id: 'ABC-1234', route: 'Route 1', occupied: 0, total: 2, status: 'Active' }
+        ];
+
+        const terminalStats = {
+            'Terminal 1': { boarding: 5, alighting: 3 },
+            'Terminal 2': { boarding: 6, alighting: 4 },
+            'Terminal 3': { boarding: 8, alighting: 7 },
+            'Terminal 4': { boarding: 5, alighting: 6 },
+            'Terminal 5': { boarding: 0, alighting: 4 }
+        };
+
+        function updateFleetSeats() {
+            const container = document.getElementById('fleetSeats');
+            container.innerHTML = '';
+
+            fleetData.forEach(jeep => {
+                const available = jeep.total - jeep.occupied;
+                const utilization = ((jeep.occupied / jeep.total) * 100).toFixed(0);
+                
+                const div = document.createElement('div');
+                div.style.padding = '20px';
+                div.style.background = '#f0f0f0';
+                div.style.borderRadius = '10px';
+                div.style.borderLeft = `4px solid ${jeep.status === 'Active' ? '#27AE60' : '#E74C3C'}`;
+                div.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--color-navy);">${jeep.id}</div>
+                            <div style="font-size: 12px; color: var(--color-gray);">${jeep.route}</div>
+                        </div>
+                        <span style="padding: 4px 8px; background: ${jeep.status === 'Active' ? '#27AE60' : '#E74C3C'}; color: white; border-radius: 4px; font-size: 11px;">
+                            ${jeep.status}
+                        </span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 18px; font-weight: 700; color: var(--color-green);">${available}</div>
+                            <div style="font-size: 10px; color: var(--color-gray);">Available</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 18px; font-weight: 700; color: var(--color-red);">${jeep.occupied}</div>
+                            <div style="font-size: 10px; color: var(--color-gray);">Occupied</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 18px; font-weight: 700; color: var(--color-blue);">${utilization}%</div>
+                            <div style="font-size: 10px; color: var(--color-gray);">Utilization</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; height: 8px; background: #ddd; border-radius: 4px; overflow: hidden;">
+                        <div style="height: 100%; width: ${utilization}%; background: ${utilization > 80 ? '#E74C3C' : utilization > 60 ? '#F39C12' : '#27AE60'}; transition: all 0.3s;"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateAdminStats() {
+            // Calculate total passengers from terminal stats
+            let totalPassengers = 0;
+            Object.values(terminalStats).forEach(stats => {
+                totalPassengers += stats.boarding;
+            });
+            document.getElementById('adminTotalPassengers').textContent = totalPassengers;
+            
+            // Calculate revenue (average fare ~₱15 per passenger)
+            const revenue = totalPassengers * 15;
+            document.getElementById('adminRevenue').textContent = `₱${revenue.toFixed(2)}`;
+        }
+        
+        function updateTerminalTracking() {
+            const container = document.getElementById('adminTerminalTracking');
+            container.innerHTML = '';
+
+            Object.keys(terminalStats).forEach(terminal => {
+                const stats = terminalStats[terminal];
+                const total = stats.boarding + stats.alighting;
+                
+                const div = document.createElement('div');
+                div.style.padding = '20px';
+                div.style.background = '#f0f0f0';
+                div.style.borderRadius = '10px';
+                div.innerHTML = `
+                    <div style="font-weight: 600; margin-bottom: 15px; color: var(--color-navy); font-size: 16px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--color-blue); margin-right: 8px;"></i>${terminal}
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--color-green);">${stats.boarding}</div>
+                            <div style="font-size: 11px; color: var(--color-gray);">
+                                <i class="fas fa-arrow-up"></i> Boarding
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--color-blue);">${stats.alighting}</div>
+                            <div style="font-size: 11px; color: var(--color-gray);">
+                                <i class="fas fa-arrow-down"></i> Alighting
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 8px; background: white; border-radius: 6px; margin-top: 5px;">
+                        <div style="font-size: 14px; font-weight: 600; color: var(--color-navy);">${total}</div>
+                        <div style="font-size: 10px; color: var(--color-gray);">Total Activity</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Listen for real-time updates
+        function checkForUpdates() {
+            const seatUpdate = localStorage.getItem('seatUpdate');
+            if (seatUpdate) {
+                const data = JSON.parse(seatUpdate);
+                // Update fleet data (simplified - in production would match by jeep ID)
+                if (fleetData[0]) {
+                    fleetData[0].occupied = data.occupied;
+                    updateFleetSeats();
+                }
+                localStorage.removeItem('seatUpdate');
+            }
+
+            const boarding = localStorage.getItem('boarding');
+            if (boarding) {
+                const data = JSON.parse(boarding);
+                if (terminalStats[data.terminal]) {
+                    terminalStats[data.terminal].boarding++;
+                    updateTerminalTracking();
+                    updateAdminStats();
+                }
+                localStorage.removeItem('boarding');
+            }
+
+            const alighting = localStorage.getItem('alighting');
+            if (alighting) {
+                const data = JSON.parse(alighting);
+                if (terminalStats[data.terminal]) {
+                    terminalStats[data.terminal].alighting++;
+                    updateTerminalTracking();
+                }
+                localStorage.removeItem('alighting');
+            }
+        }
+
+        // Initialize
+        updateFleetSeats();
+        updateTerminalTracking();
+        updateAdminStats();
+        
+        // Check for updates every second
+        setInterval(checkForUpdates, 1000);
+    </script>
+</body>
+</html>
