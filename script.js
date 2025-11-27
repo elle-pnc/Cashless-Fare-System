@@ -3,11 +3,38 @@
 // Global Variables
 let currentUser = null;
 let notifications = [];
+let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// Mobile viewport fix for iOS
+(function() {
+    function setViewportHeight() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', setViewportHeight);
+})();
+
+// Prevent zoom on double tap (mobile)
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(event) {
+    let now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeApp();
+    });
+} else {
     initializeApp();
-});
+}
 
 function initializeApp() {
     // Check if we're on login page or dashboard
@@ -23,30 +50,63 @@ function initializeApp() {
 // ===========================
 
 function initializeLoginPage() {
-    // Toggle password visibility
+    // Toggle password visibility (mobile-friendly)
     const togglePasswordBtns = document.querySelectorAll('.toggle-password');
+    const passwordInput = document.getElementById('password');
+    
     togglePasswordBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            }
+        // Support both click and touch events
+        ['click', 'touchend'].forEach(eventType => {
+            btn.addEventListener(eventType, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const icon = this.querySelector('i') || this;
+                const input = passwordInput || this.previousElementSibling || 
+                             this.closest('.input-group')?.querySelector('input[type="password"]');
+                
+                if (!input) return;
+                
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                
+                if (icon) {
+                    icon.classList.toggle('fa-eye', !isPassword);
+                    icon.classList.toggle('fa-eye-slash', isPassword);
+                }
+                
+                this.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
+                
+                // Focus input after toggle for better UX
+                setTimeout(() => input.focus(), 100);
+            }, { passive: false });
         });
     });
 
-    // Role selector
+    // Role selector (mobile-friendly with touch support)
     const roleBtns = document.querySelectorAll('.role-btn');
     roleBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            roleBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+        ['click', 'touchend'].forEach(eventType => {
+            btn.addEventListener(eventType, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                roleBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                
+                this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
+            }, { passive: false });
         });
+        
+        // Add haptic feedback on mobile
+        if (isTouchDevice && navigator.vibrate) {
+            btn.addEventListener('touchstart', function() {
+                navigator.vibrate(10);
+            }, { passive: true });
+        }
     });
 
     // Login form submission
@@ -58,17 +118,61 @@ function initializeLoginPage() {
         });
     }
 
-    // OTP input navigation
+    // OTP input navigation (mobile-optimized)
     const otpInputs = document.querySelectorAll('.otp-input');
     otpInputs.forEach((input, index) => {
-        input.addEventListener('input', function() {
+        // Mobile: use numeric keyboard
+        input.setAttribute('inputmode', 'numeric');
+        input.setAttribute('pattern', '[0-9]');
+        
+        input.addEventListener('input', function(e) {
+            // Only allow numbers
+            this.value = this.value.replace(/[^0-9]/g, '');
+            
             if (this.value.length === 1 && index < otpInputs.length - 1) {
                 otpInputs[index + 1].focus();
             }
+            
+            // Auto-submit when all fields filled
+            if (index === otpInputs.length - 1 && this.value.length === 1) {
+                const allFilled = Array.from(otpInputs).every(inp => inp.value.length === 1);
+                if (allFilled) {
+                    setTimeout(() => {
+                        const verifyBtn = document.getElementById('verifyBtn');
+                        if (verifyBtn) verifyBtn.click();
+                    }, 300);
+                }
+            }
         });
+        
         input.addEventListener('keydown', function(e) {
             if (e.key === 'Backspace' && this.value === '' && index > 0) {
                 otpInputs[index - 1].focus();
+                otpInputs[index - 1].select();
+            }
+            
+            // Handle paste
+            if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+                setTimeout(() => {
+                    const pastedValue = this.value;
+                    if (pastedValue.length > 1) {
+                        const digits = pastedValue.replace(/[^0-9]/g, '').slice(0, otpInputs.length);
+                        digits.split('').forEach((digit, i) => {
+                            if (otpInputs[index + i]) {
+                                otpInputs[index + i].value = digit;
+                            }
+                        });
+                        const lastIndex = Math.min(index + digits.length - 1, otpInputs.length - 1);
+                        otpInputs[lastIndex].focus();
+                    }
+                }, 10);
+            }
+        });
+        
+        // Prevent non-numeric input
+        input.addEventListener('keypress', function(e) {
+            if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
             }
         });
     });
@@ -119,15 +223,40 @@ function redirectToDashboard(role) {
 // ===========================
 
 function initializeDashboard() {
-    // Modal close handlers
+    // Modal close handlers (mobile-friendly)
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
+        
+        // Prevent body scroll when modal is open on mobile
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    if (modal.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                        document.body.style.position = 'fixed';
+                        document.body.style.width = '100%';
+                    } else {
+                        document.body.style.overflow = '';
+                        document.body.style.position = '';
+                        document.body.style.width = '';
+                    }
+                }
+            });
+        });
+        observer.observe(modal, { attributes: true });
     });
+    
+    // Initialize mobile-specific features
+    if (isMobile) {
+        initializeCollapsibleSections();
+        initializeMobileStatsScroll();
+    }
 
     // Initialize charts with hover effects
     initializeCharts();
@@ -350,6 +479,172 @@ function generateSampleTransactions(count = 20) {
     return transactions;
 }
 
+// Mobile Menu Toggle
+function addMobileMenuToggle() {
+    const sidebar = document.querySelector('.sidebar');
+    if (!sidebar) return;
+    
+    // Create mobile menu button
+    const menuBtn = document.createElement('button');
+    menuBtn.className = 'mobile-menu-btn';
+    menuBtn.setAttribute('aria-label', 'Toggle menu');
+    menuBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+    menuBtn.style.cssText = `
+        display: none;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1001;
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        background: var(--color-blue);
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: var(--shadow-md);
+        -webkit-tap-highlight-color: transparent;
+    `;
+    
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        menuBtn.style.display = 'flex';
+        menuBtn.style.alignItems = 'center';
+        menuBtn.style.justifyContent = 'center';
+        document.body.appendChild(menuBtn);
+    }
+    
+    // Toggle sidebar
+    menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = sidebar.classList.contains('mobile-open');
+        
+        sidebar.classList.toggle('mobile-open');
+        document.body.classList.toggle('menu-open', !isOpen);
+        
+        const icon = this.querySelector('i');
+        if (!isOpen) {
+            icon.className = 'fas fa-times';
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = 'hidden';
+        } else {
+            icon.className = 'fas fa-bars';
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(e) {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            if (sidebar.classList.contains('mobile-open') && 
+                !sidebar.contains(e.target) && 
+                !menuBtn.contains(e.target)) {
+                sidebar.classList.remove('mobile-open');
+                document.body.classList.remove('menu-open');
+                document.body.style.overflow = '';
+                menuBtn.querySelector('i').className = 'fas fa-bars';
+            }
+        }
+    });
+    
+    // Close sidebar on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('mobile-open')) {
+            sidebar.classList.remove('mobile-open');
+            document.body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+            menuBtn.querySelector('i').className = 'fas fa-bars';
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            menuBtn.style.display = 'flex';
+        } else {
+            menuBtn.style.display = 'none';
+            sidebar.classList.remove('mobile-open');
+        }
+    });
+}
+
+// Prevent accidental form submission on mobile
+function preventAccidentalSubmission() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        let submitButton = form.querySelector('button[type="submit"]');
+        if (submitButton) {
+            submitButton.addEventListener('touchstart', function() {
+                this.style.opacity = '0.8';
+            }, { passive: true });
+            
+            submitButton.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.opacity = '1';
+                }, 200);
+            }, { passive: true });
+        }
+    });
+}
+
+// Optimize images for mobile
+function optimizeImages() {
+    if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.loading = 'lazy';
+        });
+    }
+}
+
+// Add pull-to-refresh prevention (optional - can be enabled)
+function preventPullToRefresh() {
+    let touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', function(e) {
+        const touchY = e.touches[0].clientY;
+        const touchDiff = touchY - touchStartY;
+        
+        // Prevent pull-to-refresh when scrolling down
+        if (touchDiff > 0 && window.scrollY === 0) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+}
+
+// Initialize mobile optimizations
+function initializeMobileOptimizations() {
+    if (isMobile) {
+        optimizeImages();
+        preventAccidentalSubmission();
+        // preventPullToRefresh(); // Uncomment if needed
+        
+        // Add mobile-specific classes
+        document.documentElement.classList.add('mobile-device');
+        if (isTouchDevice) {
+            document.documentElement.classList.add('touch-device');
+        }
+        
+        // Optimize scroll performance
+        document.documentElement.style.webkitOverflowScrolling = 'touch';
+    }
+}
+
+// Enhanced initializeApp function
+function initializeApp() {
+    // Initialize mobile optimizations first
+    initializeMobileOptimizations();
+    
+    // Check if we're on login page or dashboard
+    if (document.querySelector('.login-container')) {
+        initializeLoginPage();
+    } else if (document.querySelector('.dashboard')) {
+        initializeDashboard();
+    }
+}
+
 // Export functions for use in other scripts
 window.ejeepSystem = {
     formatCurrency,
@@ -357,6 +652,9 @@ window.ejeepSystem = {
     formatTime,
     showAlert,
     generateSampleJeeps,
-    generateSampleTransactions
+    generateSampleTransactions,
+    isMobile,
+    isTouchDevice
 };
+
 

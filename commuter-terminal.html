@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2C3E50">
     <title>Fare Terminal - E-Jeep Manager</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
     <div class="dashboard">
@@ -35,6 +43,45 @@
                 </li>
             </ul>
         </aside>
+
+        <!-- Mobile Sticky Header -->
+        <header class="mobile-header">
+            <div class="mobile-header-content">
+                <div class="mobile-header-title">
+                    <i class="fas fa-credit-card"></i>
+                    <h1>Fare Terminal</h1>
+                </div>
+                <div class="mobile-header-actions">
+                    <a href="index.html" class="icon-btn" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-bottom-nav">
+            <ul>
+                <li>
+                    <a href="commuter-dashboard.html" aria-label="Dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="commuter-terminal.html" class="active" aria-label="Fare Terminal">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Terminal</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
         <main class="main-content">
             <div class="page-header">
@@ -84,16 +131,16 @@
             </div>
 
             <!-- Balance and Terminal Selection -->
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px;">
+            <div class="terminal-layout" style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px;">
                 <!-- Balance Card -->
-                <div style="background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%); padding: 30px; border-radius: 15px; box-shadow: var(--shadow-md); color: white; text-align: center;">
+                <div class="balance-card-terminal" style="background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%); padding: 30px; border-radius: 15px; box-shadow: var(--shadow-md); color: white; text-align: center;">
                     <p style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Card Balance</p>
                     <h2 style="font-size: 42px; font-weight: 700; margin: 0 0 15px 0;" id="cardBalance">₱250.00</h2>
                     <p style="font-size: 12px; opacity: 0.8;">Card Number: **** 1234</p>
                 </div>
 
                 <!-- Terminal Selection -->
-                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: var(--shadow-sm);">
+                <div class="terminal-selection-card" style="background: white; padding: 25px; border-radius: 15px; box-shadow: var(--shadow-sm);">
                     <h3 style="margin-bottom: 20px; color: var(--color-navy);">
                         <i class="fas fa-map-marker-alt" style="color: var(--color-blue); margin-right: 10px;"></i>
                         Select Your Route
@@ -642,9 +689,14 @@
             const indicator = document.getElementById('seatsIndicator');
             indicator.innerHTML = '';
             
+            // Mobile-responsive size
+            const isMobile = window.innerWidth <= 767;
+            const seatSize = isMobile ? '18px' : '30px';
+            const seatFontSize = isMobile ? '9px' : '12px';
+            
             for (let i = 1; i <= totalSeats; i++) {
                 const seat = document.createElement('div');
-                seat.style.cssText = 'width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600;';
+                seat.style.cssText = `width: ${seatSize}; height: ${seatSize}; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: ${seatFontSize}; font-weight: 600;`;
                 seat.textContent = i;
                 
                 if (i <= occupiedSeats) {

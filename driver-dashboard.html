@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2C3E50">
     <title>Driver Dashboard - E-Jeep Manager</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
     <div class="dashboard">
@@ -29,6 +37,39 @@
                 </li>
             </ul>
         </aside>
+
+        <!-- Mobile Sticky Header -->
+        <header class="mobile-header">
+            <div class="mobile-header-content">
+                <div class="mobile-header-title">
+                    <i class="fas fa-bus"></i>
+                    <h1>Driver Dashboard</h1>
+                </div>
+                <div class="mobile-header-actions">
+                    <a href="index.html" class="icon-btn" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-bottom-nav">
+            <ul>
+                <li>
+                    <a href="driver-dashboard.html" class="active" aria-label="Dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
         <main class="main-content">
             <div class="page-header">
@@ -275,15 +316,21 @@
             // Update seat indicator
             const indicator = document.getElementById('seatIndicator');
             indicator.innerHTML = '';
+            
+            // Mobile-responsive size
+            const isMobile = window.innerWidth <= 767;
+            const seatSize = isMobile ? '16px' : '20px';
+            const seatFontSize = isMobile ? '8px' : '10px';
+            
             for (let i = 1; i <= totalSeats; i++) {
                 const seat = document.createElement('div');
-                seat.style.width = '20px';
-                seat.style.height = '20px';
+                seat.style.width = seatSize;
+                seat.style.height = seatSize;
                 seat.style.borderRadius = '4px';
                 seat.style.display = 'flex';
                 seat.style.alignItems = 'center';
                 seat.style.justifyContent = 'center';
-                seat.style.fontSize = '10px';
+                seat.style.fontSize = seatFontSize;
                 seat.textContent = i;
                 if (i <= occupiedSeats) {
                     seat.style.background = '#E74C3C';

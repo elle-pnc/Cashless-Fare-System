@@ -2,10 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2C3E50">
+    <meta name="description" content="E-Jeep Management System - Cashless Fare System">
+    <meta name="keywords" content="e-jeep, cashless, fare, management, transportation">
+    <meta name="author" content="E-Jeep Management System">
     <title>E-Jeep Management System</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
     <div class="login-container">
@@ -15,65 +26,80 @@
                 <h1>E-Jeep Manager</h1>
             </div>
             
-            <div class="role-selector">
-                <button class="role-btn active" data-role="admin">
-                    <i class="fas fa-user-shield"></i>
-                    Admin/Operator
+            <div class="role-selector" role="group" aria-label="Select user role">
+                <button class="role-btn active" data-role="admin" type="button" aria-pressed="true" aria-label="Admin or Operator role">
+                    <i class="fas fa-user-shield" aria-hidden="true"></i>
+                    <span>Admin/Operator</span>
                 </button>
-                <button class="role-btn" data-role="driver">
-                    <i class="fas fa-id-card"></i>
-                    Driver
+                <button class="role-btn" data-role="driver" type="button" aria-pressed="false" aria-label="Driver role">
+                    <i class="fas fa-id-card" aria-hidden="true"></i>
+                    <span>Driver</span>
                 </button>
-                <button class="role-btn" data-role="commuter">
-                    <i class="fas fa-user"></i>
-                    Commuter
+                <button class="role-btn" data-role="commuter" type="button" aria-pressed="false" aria-label="Commuter role">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                    <span>Commuter</span>
                 </button>
             </div>
 
-            <form id="loginForm" class="auth-form">
+            <form id="loginForm" class="auth-form" novalidate aria-label="Login form">
                 <h2>Login</h2>
                 
                 <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" placeholder="Email address" required>
+                    <label for="email" class="sr-only">Email address</label>
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    <input type="email" id="email" name="email" placeholder="Email address" required aria-required="true" autocomplete="email" inputmode="email">
                 </div>
                 
                 <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="password" placeholder="Password" required>
-                    <i class="fas fa-eye toggle-password"></i>
+                    <label for="password" class="sr-only">Password</label>
+                    <i class="fas fa-lock" aria-hidden="true"></i>
+                    <input type="password" id="password" name="password" placeholder="Password" required aria-required="true" autocomplete="current-password">
+                    <button type="button" class="toggle-password" aria-label="Toggle password visibility" aria-pressed="false">
+                        <i class="fas fa-eye" aria-hidden="true"></i>
+                    </button>
                 </div>
                 
                 <button type="submit" class="btn btn-primary btn-block">
-                    <i class="fas fa-sign-in-alt"></i> Login
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i> <span>Login</span>
                 </button>
             </form>
 
-            <div id="twoFactorForm" class="auth-form hidden">
-                <h2>Two-Step Verification</h2>
+            <div id="twoFactorForm" class="auth-form hidden" role="dialog" aria-labelledby="2fa-title" aria-hidden="true">
+                <h2 id="2fa-title">Two-Step Verification</h2>
                 <p class="form-description">Enter the verification code sent to your email/phone</p>
                 
-                <div class="otp-container">
-                    <input type="text" maxlength="1" class="otp-input">
-                    <input type="text" maxlength="1" class="otp-input">
-                    <input type="text" maxlength="1" class="otp-input">
-                    <input type="text" maxlength="1" class="otp-input">
-                    <input type="text" maxlength="1" class="otp-input">
-                    <input type="text" maxlength="1" class="otp-input">
+                <div class="otp-container" role="group" aria-label="Enter 6-digit verification code">
+                    <label for="otp-1" class="sr-only">First digit</label>
+                    <input type="text" maxlength="1" class="otp-input" id="otp-1" inputmode="numeric" pattern="[0-9]" aria-label="Digit 1">
+                    <label for="otp-2" class="sr-only">Second digit</label>
+                    <input type="text" maxlength="1" class="otp-input" id="otp-2" inputmode="numeric" pattern="[0-9]" aria-label="Digit 2">
+                    <label for="otp-3" class="sr-only">Third digit</label>
+                    <input type="text" maxlength="1" class="otp-input" id="otp-3" inputmode="numeric" pattern="[0-9]" aria-label="Digit 3">
+                    <label for="otp-4" class="sr-only">Fourth digit</label>
+                    <input type="text" maxlength="1" class="otp-input" id="otp-4" inputmode="numeric" pattern="[0-9]" aria-label="Digit 4">
+                    <label for="otp-5" class="sr-only">Fifth digit</label>
+                    <input type="text" maxlength="1" class="otp-input" id="otp-5" inputmode="numeric" pattern="[0-9]" aria-label="Digit 5">
+                    <label for="otp-6" class="sr-only">Sixth digit</label>
+                    <input type="text" maxlength="1" class="otp-input" id="otp-6" inputmode="numeric" pattern="[0-9]" aria-label="Digit 6">
                 </div>
                 
-                <button class="btn btn-primary btn-block">
-                    <i class="fas fa-check"></i> Verify
+                <button type="button" class="btn btn-primary btn-block" id="verifyBtn">
+                    <i class="fas fa-check" aria-hidden="true"></i> <span>Verify</span>
                 </button>
                 
                 <p class="switch-form">
-                    Didn't receive code? <a href="#">Resend</a>
+                    Didn't receive code? <a href="#" role="button" aria-label="Resend verification code">Resend</a>
                 </p>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
+    <noscript>
+        <div style="text-align: center; padding: 20px; background: #E74C3C; color: white;">
+            <p>JavaScript is required for this application to function properly. Please enable JavaScript in your browser settings.</p>
+        </div>
+    </noscript>
 </body>
 </html>
 

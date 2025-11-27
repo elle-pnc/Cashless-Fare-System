@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2C3E50">
     <title>Commuter Dashboard - E-Jeep Manager</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
     <div class="dashboard">
@@ -36,22 +44,61 @@
             </ul>
         </aside>
 
+        <!-- Mobile Sticky Header -->
+        <header class="mobile-header">
+            <div class="mobile-header-content">
+                <div class="mobile-header-title">
+                    <i class="fas fa-bus"></i>
+                    <h1>Commuter Dashboard</h1>
+                </div>
+                <div class="mobile-header-actions">
+                    <a href="index.html" class="icon-btn" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-bottom-nav">
+            <ul>
+                <li>
+                    <a href="commuter-dashboard.html" class="active" aria-label="Dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="commuter-terminal.html" aria-label="Fare Terminal">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Terminal</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
         <main class="main-content">
             <div class="page-header">
                 <h1>Commuter Dashboard</h1>
             </div>
 
             <!-- Account Balance Card -->
-            <div style="background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: var(--shadow-md); color: white;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                    <div>
-                        <p style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Card Balance</p>
-                        <h2 style="font-size: 48px; font-weight: 700; margin: 0;" id="mainBalance">₱250.00</h2>
-                        <p style="font-size: 14px; opacity: 0.9; margin-top: 10px;">Card Number: **** 1234</p>
+            <div class="balance-card">
+                <div class="balance-card-content">
+                    <div class="balance-info">
+                        <p style="opacity: 0.9; margin-bottom: 10px;">Card Balance</p>
+                        <h2 id="mainBalance">₱250.00</h2>
+                        <p style="opacity: 0.9;">Card Number: **** 1234</p>
                     </div>
-                    <div style="text-align: right;">
-                        <button class="btn" style="background: white; color: #3498DB; padding: 12px 30px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="openTopUpModal()">
-                            <i class="fas fa-plus-circle"></i> Top Up
+                    <div>
+                        <button class="btn" style="background: white; color: #3498DB;" onclick="openTopUpModal()">
+                            <i class="fas fa-plus-circle" aria-hidden="true"></i> Top Up
                         </button>
                     </div>
                 </div>
@@ -127,38 +174,38 @@
                     </div>
                     
                     <!-- Seats Layout -->
-                    <div style="display: flex; justify-content: center; gap: 30px; align-items: center;">
+                    <div class="seat-container">
                         <!-- Left Seat -->
-                        <div style="flex: 1; max-width: 200px;">
-                            <div style="text-align: center; margin-bottom: 10px;">
-                                <span style="color: rgba(255,255,255,0.7); font-size: 12px;">Seat 1</span>
+                        <div class="seat-wrapper">
+                            <div class="seat-label">
+                                <span>Seat 1</span>
                             </div>
-                            <div id="seat1" style="width: 100%; aspect-ratio: 1; background: #27AE60; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; cursor: pointer;" onclick="toggleSeat(1)">
-                                <i class="fas fa-chair" style="font-size: 48px; color: white;"></i>
+                            <div id="seat1" class="seat" style="background: #27AE60;" onclick="toggleSeat(1)" role="button" aria-label="Seat 1" tabindex="0">
+                                <i class="fas fa-chair" style="font-size: 48px; color: white;" aria-hidden="true"></i>
                             </div>
-                            <div style="text-align: center; margin-top: 10px;">
-                                <span id="seat1Status" style="color: white; font-size: 14px; font-weight: 600;">Available</span>
+                            <div class="seat-status">
+                                <span id="seat1Status">Available</span>
                             </div>
                         </div>
                         
                         <!-- Driver Area (Visual Separator) -->
-                        <div style="width: 80px; text-align: center;">
-                            <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px;">
-                                <i class="fas fa-user-tie" style="font-size: 32px; color: rgba(255,255,255,0.8);"></i>
-                                <p style="color: rgba(255,255,255,0.7); font-size: 11px; margin: 5px 0 0 0;">Driver</p>
+                        <div class="driver-area">
+                            <div class="driver-box">
+                                <i class="fas fa-user-tie" aria-hidden="true"></i>
+                                <p>Driver</p>
                             </div>
                         </div>
                         
                         <!-- Right Seat -->
-                        <div style="flex: 1; max-width: 200px;">
-                            <div style="text-align: center; margin-bottom: 10px;">
-                                <span style="color: rgba(255,255,255,0.7); font-size: 12px;">Seat 2</span>
+                        <div class="seat-wrapper">
+                            <div class="seat-label">
+                                <span>Seat 2</span>
                             </div>
-                            <div id="seat2" style="width: 100%; aspect-ratio: 1; background: #27AE60; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; cursor: pointer;" onclick="toggleSeat(2)">
-                                <i class="fas fa-chair" style="font-size: 48px; color: white;"></i>
+                            <div id="seat2" class="seat" style="background: #27AE60;" onclick="toggleSeat(2)" role="button" aria-label="Seat 2" tabindex="0">
+                                <i class="fas fa-chair" style="font-size: 48px; color: white;" aria-hidden="true"></i>
                             </div>
-                            <div style="text-align: center; margin-top: 10px;">
-                                <span id="seat2Status" style="color: white; font-size: 14px; font-weight: 600;">Available</span>
+                            <div class="seat-status">
+                                <span id="seat2Status">Available</span>
                             </div>
                         </div>
                     </div>
