@@ -88,17 +88,17 @@
                 <h1>Commuter Dashboard</h1>
             </div>
 
-            <!-- Account Balance Card -->
+            <!-- Account Balance Card - Mobile Optimized -->
             <div class="balance-card">
                 <div class="balance-card-content">
                     <div class="balance-info">
-                        <p style="opacity: 0.9; margin-bottom: 10px;">Card Balance</p>
-                        <h2 id="mainBalance">₱250.00</h2>
-                        <p style="opacity: 0.9;">Card Number: **** 1234</p>
+                        <p style="opacity: 0.9; margin-bottom: 10px; font-size: 14px;">Card Balance</p>
+                        <h2 id="mainBalance" style="font-size: clamp(2rem, 1.5rem + 2.5vw, 2.5rem);">₱250.00</h2>
+                        <p style="opacity: 0.9; font-size: 13px;">Card Number: **** 1234</p>
                     </div>
                     <div>
-                        <button class="btn" style="background: white; color: #3498DB;" onclick="openTopUpModal()">
-                            <i class="fas fa-plus-circle" aria-hidden="true"></i> Top Up
+                        <button class="btn" style="background: white; color: #3498DB; min-height: 48px; min-width: 120px; padding: 12px 20px; font-size: 15px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;" onclick="openTopUpModal()">
+                            <i class="fas fa-plus-circle" aria-hidden="true"></i> <span>Top Up</span>
                         </button>
                     </div>
                 </div>
@@ -147,96 +147,96 @@
                 </div>
             </div>
 
-            <!-- Seat Availability Display -->
-            <div style="background: white; padding: 30px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                    <h3>Seat Availability</h3>
-                    <div style="display: flex; align-items: center; gap: 15px;">
+            <!-- Seat Availability Display - Mobile Optimized (Matches Image Layout) -->
+            <div id="seatAvailabilityCard" style="background: white; padding: clamp(20px, 4vw, 30px); border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm); display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: clamp(16px, 3vw, 20px); flex-wrap: wrap; gap: 12px;">
+                    <h3 style="font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem); font-weight: 700; color: var(--color-navy);">Seat Availability</h3>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <div style="width: 20px; height: 20px; background: #27AE60; border-radius: 4px;"></div>
+                            <div style="width: 16px; height: 16px; background: #27AE60; border-radius: 4px; flex-shrink: 0;"></div>
                             <span style="font-size: 13px; color: var(--color-gray);">Available</span>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <div style="width: 20px; height: 20px; background: #E74C3C; border-radius: 4px;"></div>
+                            <div style="width: 16px; height: 16px; background: #E74C3C; border-radius: 4px; flex-shrink: 0;"></div>
                             <span style="font-size: 13px; color: var(--color-gray);">Occupied</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Jeepney Visual -->
-                <div style="background: linear-gradient(135deg, #34495E 0%, #2C3E50 100%); border-radius: 15px; padding: 30px; margin-bottom: 20px; position: relative; overflow: hidden;">
+                <!-- Jeepney Visual - Mobile Optimized (Vertical Layout) -->
+                <div style="background: linear-gradient(135deg, #34495E 0%, #2C3E50 100%); border-radius: 15px; padding: clamp(20px, 4vw, 30px); margin-bottom: 0; position: relative; overflow: hidden;">
                     <!-- Jeepney Header -->
-                    <div style="text-align: center; margin-bottom: 25px;">
-                        <div style="display: inline-block; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; margin-bottom: 10px;">
-                            <h4 style="color: white; margin: 0; font-size: 18px;" id="jeepneyIdDisplay">ABC-1234</h4>
+                    <div style="text-align: center; margin-bottom: clamp(16px, 3vw, 20px);">
+                        <div style="display: inline-block; background: rgba(255,255,255,0.15); padding: clamp(8px, 1.5vw, 10px) clamp(16px, 3vw, 20px); border-radius: 10px; margin-bottom: 8px;">
+                            <h4 style="color: white; margin: 0; font-size: clamp(16px, 1rem + 0.5vw, 18px); font-weight: 600;" id="jeepneyIdDisplay">ABC-1234</h4>
                         </div>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 14px; margin: 5px 0 0 0;" id="jeepneyRouteDisplay">Route 1 - City Center to Mall</p>
+                        <p style="color: rgba(255,255,255,0.85); font-size: clamp(13px, 0.875rem + 0.25vw, 14px); margin: 4px 0 0 0;" id="jeepneyRouteDisplay">Route 1 - City Center to Mall</p>
                     </div>
                     
-                    <!-- Seats Layout -->
-                    <div class="seat-container">
-                        <!-- Left Seat -->
-                        <div class="seat-wrapper">
-                            <div class="seat-label">
+                    <!-- Seats Layout - Horizontal (Mobile Optimized) -->
+                    <div class="seat-container-mobile" style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; gap: clamp(12px, 3vw, 20px); padding: clamp(16px, 3vw, 24px) clamp(12px, 2vw, 20px); flex-wrap: nowrap;">
+                        <!-- Seat 1 (Left) -->
+                        <div class="seat-wrapper-mobile" style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                            <div class="seat-label" style="font-size: 13px; color: rgba(255,255,255,0.9); margin-bottom: 10px; font-weight: 600; white-space: nowrap;">
                                 <span>Seat 1</span>
                             </div>
-                            <div id="seat1" class="seat" style="background: #27AE60;" onclick="toggleSeat(1)" role="button" aria-label="Seat 1" tabindex="0">
-                                <i class="fas fa-chair" style="font-size: 48px; color: white;" aria-hidden="true"></i>
+                            <div id="seat1" class="seat seat-mobile" style="background: #27AE60; width: 100%; max-width: 90px; aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.2s ease;" onclick="toggleSeat(1)" role="button" aria-label="Seat 1" tabindex="0">
+                                <i class="fas fa-chair" style="font-size: clamp(28px, 4vw, 36px); color: white;" aria-hidden="true"></i>
                             </div>
-                            <div class="seat-status">
+                            <div class="seat-status" style="font-size: 12px; color: rgba(255,255,255,0.9); margin-top: 10px; font-weight: 500; text-align: center; white-space: nowrap;">
                                 <span id="seat1Status">Available</span>
                             </div>
                         </div>
                         
-                        <!-- Driver Area (Visual Separator) -->
-                        <div class="driver-area">
-                            <div class="driver-box">
-                                <i class="fas fa-user-tie" aria-hidden="true"></i>
-                                <p>Driver</p>
+                        <!-- Driver Area (Center) -->
+                        <div class="driver-area-mobile" style="display: flex; justify-content: center; align-items: center; flex-shrink: 0; margin: 0 clamp(8px, 2vw, 16px);">
+                            <div class="driver-box-mobile" style="background: rgba(255,255,255,0.15); padding: clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 18px); border-radius: 10px; text-align: center; min-width: 60px; max-width: 80px;">
+                                <i class="fas fa-user-tie" style="font-size: clamp(18px, 3vw, 22px); color: white; margin-bottom: 6px; display: block;" aria-hidden="true"></i>
+                                <p style="color: rgba(255,255,255,0.9); font-size: clamp(10px, 1.5vw, 12px); margin: 0; font-weight: 500; white-space: nowrap;">Driver</p>
                             </div>
                         </div>
                         
-                        <!-- Right Seat -->
-                        <div class="seat-wrapper">
-                            <div class="seat-label">
+                        <!-- Seat 2 (Right) -->
+                        <div class="seat-wrapper-mobile" style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                            <div class="seat-label" style="font-size: 13px; color: rgba(255,255,255,0.9); margin-bottom: 10px; font-weight: 600; white-space: nowrap;">
                                 <span>Seat 2</span>
                             </div>
-                            <div id="seat2" class="seat" style="background: #27AE60;" onclick="toggleSeat(2)" role="button" aria-label="Seat 2" tabindex="0">
-                                <i class="fas fa-chair" style="font-size: 48px; color: white;" aria-hidden="true"></i>
+                            <div id="seat2" class="seat seat-mobile" style="background: #27AE60; width: 100%; max-width: 90px; aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.2s ease;" onclick="toggleSeat(2)" role="button" aria-label="Seat 2" tabindex="0">
+                                <i class="fas fa-chair" style="font-size: clamp(28px, 4vw, 36px); color: white;" aria-hidden="true"></i>
                             </div>
-                            <div class="seat-status">
+                            <div class="seat-status" style="font-size: 12px; color: rgba(255,255,255,0.9); margin-top: 10px; font-weight: 500; text-align: center; white-space: nowrap;">
                                 <span id="seat2Status">Available</span>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Availability Summary -->
-                    <div style="display: flex; justify-content: center; gap: 30px; margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-                        <div style="text-align: center;">
-                            <div style="font-size: 32px; font-weight: 700; color: white;" id="availableCountDisplay">2</div>
-                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Available</div>
+                    <!-- Availability Summary - Mobile Optimized -->
+                    <div style="display: flex; justify-content: center; gap: clamp(24px, 5vw, 32px); margin-top: clamp(20px, 3vw, 24px); padding-top: clamp(16px, 3vw, 20px); border-top: 1px solid rgba(255,255,255,0.15); flex-wrap: wrap;">
+                        <div style="text-align: center; min-width: 70px;">
+                            <div style="font-size: clamp(28px, 1.75rem + 1vw, 32px); font-weight: 700; color: white; line-height: 1.2;" id="availableCountDisplay">2</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 4px;">Available</div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 32px; font-weight: 700; color: white;" id="occupiedCountDisplay">0</div>
-                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Occupied</div>
+                        <div style="text-align: center; min-width: 70px;">
+                            <div style="font-size: clamp(28px, 1.75rem + 1vw, 32px); font-weight: 700; color: white; line-height: 1.2;" id="occupiedCountDisplay">0</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 4px;">Occupied</div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 32px; font-weight: 700; color: white;">2</div>
-                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Total Seats</div>
+                        <div style="text-align: center; min-width: 70px;">
+                            <div style="font-size: clamp(28px, 1.75rem + 1vw, 32px); font-weight: 700; color: white; line-height: 1.2;">2</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 4px;">Total Seats</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Trips -->
-            <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3>Recent Trips</h3>
-                    <button class="btn btn-secondary" onclick="viewAllTrips()" style="padding: 8px 20px; font-size: 14px;">
-                        View All
+            <!-- Recent Trips - Mobile Optimized -->
+            <div style="background: white; padding: clamp(20px, 4vw, 25px); border-radius: 15px; margin-top: 30px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <h3 style="font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);">Recent Trips</h3>
+                    <button class="btn btn-secondary" onclick="viewAllTrips()" style="min-height: 44px; padding: 10px 20px; font-size: 14px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
+                        <span>View All</span>
                     </button>
                 </div>
-                <div id="recentTripsList"></div>
+                <div id="recentTripsList" style="max-height: 400px; overflow-y: auto; -webkit-overflow-scrolling: touch;"></div>
             </div>
 
             <!-- Trip History Chart -->
@@ -285,12 +285,12 @@
                         <h4 style="font-size: 18px; font-weight: 600;" id="farePaid">₱22.00</h4>
                     </div>
                 </div>
-                <div style="margin-top: 20px; display: flex; gap: 10px;">
-                    <button class="btn" style="background: white; color: #27AE60; padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="window.location.href='commuter-terminal.html'">
-                        <i class="fas fa-route"></i> Change Terminal
+                <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn" style="background: white; color: #27AE60; padding: 14px 20px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; min-height: 48px; font-size: 15px; touch-action: manipulation; -webkit-tap-highlight-color: transparent;" onclick="window.location.href='commuter-terminal.html'">
+                        <i class="fas fa-route"></i> <span>Extend Trip / Change Terminal</span>
                     </button>
-                    <button class="btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border: 2px solid white; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="viewTripDetails()">
-                        <i class="fas fa-info-circle"></i> Trip Details
+                    <button class="btn" style="background: rgba(255,255,255,0.2); color: white; padding: 14px 20px; border: 2px solid white; border-radius: 10px; font-weight: 600; cursor: pointer; min-height: 48px; font-size: 15px; touch-action: manipulation; -webkit-tap-highlight-color: transparent;" onclick="viewTripDetails()">
+                        <i class="fas fa-info-circle"></i> <span>Trip Details</span>
                     </button>
                 </div>
             </div>
@@ -312,19 +312,19 @@
                     <input type="number" id="topUpAmount" placeholder="Enter amount" min="50" step="10" value="100">
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
-                    <button class="btn btn-secondary" onclick="setTopUpAmount(50)" style="padding: 10px;">₱50</button>
-                    <button class="btn btn-secondary" onclick="setTopUpAmount(100)" style="padding: 10px;">₱100</button>
-                    <button class="btn btn-secondary" onclick="setTopUpAmount(200)" style="padding: 10px;">₱200</button>
-                    <button class="btn btn-secondary" onclick="setTopUpAmount(500)" style="padding: 10px;">₱500</button>
-                    <button class="btn btn-secondary" onclick="setTopUpAmount(1000)" style="padding: 10px;">₱1,000</button>
-                    <button class="btn btn-secondary" onclick="setTopUpAmount(2000)" style="padding: 10px;">₱2,000</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(50)" style="min-height: 48px; padding: 12px; font-size: 15px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">₱50</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(100)" style="min-height: 48px; padding: 12px; font-size: 15px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">₱100</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(200)" style="min-height: 48px; padding: 12px; font-size: 15px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">₱200</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(500)" style="min-height: 48px; padding: 12px; font-size: 15px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">₱500</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(1000)" style="min-height: 48px; padding: 12px; font-size: 15px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">₱1,000</button>
+                    <button class="btn btn-secondary" onclick="setTopUpAmount(2000)" style="min-height: 48px; padding: 12px; font-size: 15px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">₱2,000</button>
                 </div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button type="button" class="btn btn-primary" onclick="confirmTopUp()" style="flex: 1;">
-                        <i class="fas fa-check"></i> Confirm Top Up
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+                    <button type="button" class="btn btn-primary" onclick="confirmTopUp()" style="min-height: 48px; padding: 14px 20px; font-size: 16px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
+                        <i class="fas fa-check"></i> <span>Confirm Top Up</span>
                     </button>
-                    <button type="button" class="btn btn-secondary" onclick="closeTopUpModal()" style="flex: 1;">
-                        Cancel
+                    <button type="button" class="btn btn-secondary" onclick="closeTopUpModal()" style="min-height: 48px; padding: 14px 20px; font-size: 16px; font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
+                        <span>Cancel</span>
                     </button>
                 </div>
             </div>
@@ -390,22 +390,22 @@
                 const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
                 const div = document.createElement('div');
-                div.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #f0f0f0;';
+                div.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: clamp(12px, 2vw, 15px); border-bottom: 1px solid #f0f0f0; min-height: 60px; touch-action: manipulation;';
                 div.innerHTML = `
-                    <div style="flex: 1;">
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div style="width: 40px; height: 40px; background: #3498DB; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
-                                <i class="fas fa-bus"></i>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: clamp(12px, 2vw, 15px);">
+                            <div style="width: clamp(36px, 2.5rem, 40px); height: clamp(36px, 2.5rem, 40px); min-width: clamp(36px, 2.5rem, 40px); background: #3498DB; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
+                                <i class="fas fa-bus" style="font-size: clamp(16px, 1rem, 18px);"></i>
                             </div>
-                            <div>
-                                <div style="font-weight: 600; color: var(--color-navy);">${trip.from} → ${trip.to}</div>
-                                <div style="font-size: 12px; color: var(--color-gray);">${dateStr} at ${timeStr} • Seat ${trip.seat}</div>
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-weight: 600; color: var(--color-navy); font-size: clamp(14px, 0.875rem + 0.25vw, 16px); margin-bottom: 4px; word-break: break-word;">${trip.from} → ${trip.to}</div>
+                                <div style="font-size: clamp(11px, 0.75rem, 12px); color: var(--color-gray);">${dateStr} at ${timeStr} • Seat ${trip.seat}</div>
                             </div>
                         </div>
                     </div>
-                    <div style="text-align: right;">
-                        <div style="font-weight: 600; color: var(--color-navy);">₱${trip.fare.toFixed(2)}</div>
-                        <div style="font-size: 12px; color: var(--color-gray);">Fare</div>
+                    <div style="text-align: right; flex-shrink: 0; margin-left: 12px;">
+                        <div style="font-weight: 600; color: var(--color-navy); font-size: clamp(15px, 0.9375rem + 0.25vw, 16px);">₱${trip.fare.toFixed(2)}</div>
+                        <div style="font-size: clamp(11px, 0.75rem, 12px); color: var(--color-gray);">Fare</div>
                     </div>
                 `;
                 container.appendChild(div);
@@ -415,8 +415,19 @@
         function updateSeatAvailability() {
             // Check localStorage for seat updates
             const seatUpdate = localStorage.getItem('seatUpdate');
+            const activeTrip = localStorage.getItem('activeTrip');
+            
             let occupied = 0;
             let total = 2;
+            let userSeat = null;
+            
+            // Get user's assigned seat from active trip
+            if (activeTrip) {
+                const trip = JSON.parse(activeTrip);
+                if (trip.isActive && trip.seat) {
+                    userSeat = trip.seat;
+                }
+            }
             
             if (seatUpdate) {
                 const data = JSON.parse(seatUpdate);
@@ -436,12 +447,20 @@
                         seatElement.style.background = '#E74C3C';
                         statusElement.textContent = 'Occupied';
                         seatElement.style.cursor = 'not-allowed';
-                        seatElement.style.opacity = '0.8';
+                        seatElement.style.opacity = '0.85';
+                        
+                        // Highlight user's seat
+                        if (userSeat === i) {
+                            seatElement.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.5)';
+                            seatElement.style.border = '2px solid rgba(255,255,255,0.8)';
+                        }
                     } else {
                         seatElement.style.background = '#27AE60';
                         statusElement.textContent = 'Available';
                         seatElement.style.cursor = 'pointer';
                         seatElement.style.opacity = '1';
+                        seatElement.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+                        seatElement.style.border = 'none';
                     }
                 }
             }
@@ -466,16 +485,31 @@
         function checkActiveTrip() {
             // Check if there's an active trip from terminal
             const activeTrip = localStorage.getItem('activeTrip');
+            const seatAvailabilityCard = document.getElementById('seatAvailabilityCard');
+            
             if (activeTrip) {
                 const trip = JSON.parse(activeTrip);
                 if (trip.isActive) {
+                    // Show active trip card
                     document.getElementById('activeTripCard').style.display = 'block';
                     document.getElementById('currentLocation').textContent = trip.currentLocation || 'In Transit';
                     document.getElementById('dropOffTerminal').textContent = trip.dropOffTerminal;
                     document.getElementById('assignedSeat').textContent = `Seat ${trip.seat}`;
                     document.getElementById('farePaid').textContent = `₱${trip.fare.toFixed(2)}`;
+                    
+                    // Show jeep info and seat availability when onboarded
+                    seatAvailabilityCard.style.display = 'block';
+                    
+                    // Update jeep info (since we only have one jeep, automatically show it)
+                    document.getElementById('jeepneyIdDisplay').textContent = 'ABC-1234';
+                    document.getElementById('jeepneyRouteDisplay').textContent = 'Route 1 - City Center to Mall';
+                    
+                    // Update seat status based on assigned seat
+                    updateSeatAvailability();
                 } else {
                     document.getElementById('activeTripCard').style.display = 'none';
+                    seatAvailabilityCard.style.display = 'none';
+                    
                     // Add completed trip to history
                     if (trip.completed) {
                         tripHistory.unshift({
@@ -492,6 +526,7 @@
                 }
             } else {
                 document.getElementById('activeTripCard').style.display = 'none';
+                seatAvailabilityCard.style.display = 'none';
             }
         }
 

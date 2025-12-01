@@ -1765,95 +1765,160 @@ p {
         gap: var(--space-md);
     }
     
-    /* Enhanced seat container mobile layout - compact */
+    /* Enhanced seat container mobile layout - HORIZONTAL (Fixed Layout) */
+    .seat-container-mobile {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-around !important;
+        gap: clamp(12px, 3vw, 20px) !important;
+        padding: clamp(16px, 3vw, 24px) clamp(12px, 2vw, 20px) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    .seat-wrapper-mobile {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+    
+    .driver-area-mobile {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        margin: 0 clamp(8px, 2vw, 16px) !important;
+    }
+    
+    .driver-box-mobile {
+        background: rgba(255,255,255,0.15) !important;
+        padding: clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 18px) !important;
+        border-radius: 10px !important;
+        text-align: center !important;
+        min-width: 60px !important;
+        max-width: 80px !important;
+    }
+    
+    /* Enhanced seat design for mobile - responsive sizing */
+    .seat.seat-mobile {
+        width: 100% !important;
+        max-width: 90px !important;
+        aspect-ratio: 1 !important;
+        border-radius: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    /* Scale seat icons for mobile - responsive */
+    .seat.seat-mobile i,
+    .seat.seat-mobile .fas,
+    .seat.seat-mobile [class*="fa-"] {
+        font-size: clamp(28px, 4vw, 36px) !important;
+    }
+    
+    .seat.seat-mobile:active {
+        transform: scale(0.95) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+    }
+    
+    /* Legacy support for existing seat-container class - horizontal on mobile */
     .seat-container {
-        flex-direction: row;
-        gap: var(--space-md);
-        padding: var(--space-md);
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: nowrap;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-around !important;
+        gap: clamp(12px, 3vw, 20px) !important;
+        padding: clamp(16px, 3vw, 24px) clamp(12px, 2vw, 20px) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        flex-wrap: nowrap !important;
     }
     
     .seat-wrapper {
-        max-width: 120px;
-        width: 120px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        max-width: 90px !important;
+        width: 100% !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        min-width: 0 !important;
     }
     
     .driver-area {
-        width: 100%;
-        order: -1;
-        display: flex;
-        justify-content: center;
-        margin-bottom: var(--space-sm);
-        max-width: 80px;
-        margin-left: auto;
-        margin-right: auto;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        margin: 0 clamp(8px, 2vw, 16px) !important;
     }
     
     .driver-box {
-        padding: var(--space-sm);
-        width: auto;
-        min-width: 60px;
-    }
-    
-    /* Enhanced seat design for mobile - properly sized */
-    .seat {
-        width: 100%;
-        max-width: 120px;
-        aspect-ratio: 1;
-        border-radius: var(--radius-md);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-        transition: all var(--transition-base);
-    }
-    
-    /* Scale down seat icons for mobile */
-    .seat i,
-    .seat .fas,
-    .seat [class*="fa-"] {
-        font-size: 24px !important;
-        width: 24px !important;
-        height: 24px !important;
-    }
-    
-    .seat-label {
-        font-size: var(--font-size-xs) !important;
-        margin-bottom: var(--space-xs) !important;
-    }
-    
-    .seat-status {
-        font-size: var(--font-size-xs) !important;
-        margin-top: var(--space-xs) !important;
-    }
-    
-    .seat:active {
-        transform: scale(0.96);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    
-    /* Driver area mobile optimization */
-    .driver-area {
-        width: 60px !important;
+        padding: clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 18px) !important;
+        width: auto !important;
         min-width: 60px !important;
-    }
-    
-    .driver-box {
-        padding: var(--space-sm) !important;
+        max-width: 80px !important;
+        background: rgba(255,255,255,0.15) !important;
+        border-radius: 10px !important;
     }
     
     .driver-box i {
-        font-size: var(--font-size-base) !important;
+        font-size: clamp(18px, 3vw, 22px) !important;
+        color: white !important;
+        margin-bottom: 6px !important;
+        display: block !important;
     }
     
     .driver-box p {
-        font-size: 10px !important;
-        margin-top: var(--space-xs) !important;
+        font-size: clamp(10px, 1.5vw, 12px) !important;
+        margin: 0 !important;
+        color: rgba(255,255,255,0.9) !important;
+        font-weight: 500 !important;
+        white-space: nowrap !important;
+    }
+    
+    /* Enhanced seat design for mobile - responsive */
+    .seat {
+        width: 100% !important;
+        max-width: 90px !important;
+        aspect-ratio: 1 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+        transition: all 0.2s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Scale seat icons for mobile - responsive */
+    .seat i,
+    .seat .fas,
+    .seat [class*="fa-"] {
+        font-size: clamp(28px, 4vw, 36px) !important;
+    }
+    
+    .seat-label {
+        font-size: 13px !important;
+        margin-bottom: 10px !important;
+        color: rgba(255,255,255,0.9) !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important;
+    }
+    
+    .seat-status {
+        font-size: 12px !important;
+        margin-top: 10px !important;
+        color: rgba(255,255,255,0.9) !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        white-space: nowrap !important;
     }
     
     /* Enhanced terminal layout - stack vertically on mobile */
@@ -2758,6 +2823,73 @@ body.menu-open::before {
     }
     
     /* Enhanced visual feedback on touch */
+    
+    /* Terminal extension button highlight */
+    #extendBtn {
+        position: relative;
+    }
+    
+    #extendBtn::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(243, 156, 18, 0.3), rgba(243, 156, 18, 0.1));
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    #extendBtn:not([style*="display: none"])::after {
+        opacity: 1;
+        animation: pulseGlow 2s infinite;
+    }
+    
+    @keyframes pulseGlow {
+        0%, 100% {
+            opacity: 0.5;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+    }
+    
+    /* Better terminal button spacing on mobile */
+    .terminal-grid {
+        gap: 10px !important;
+    }
+    
+    /* Improved modal on mobile */
+    .modal-content {
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Better form input sizing */
+    input[type="number"],
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        min-height: 48px !important;
+        padding: 12px 16px !important;
+    }
+    
+    /* Enhanced balance card for mobile */
+    .balance-card {
+        padding: clamp(20px, 4vw, 30px) !important;
+    }
+    
+    .balance-card h2 {
+        font-size: clamp(2rem, 1.5rem + 2.5vw, 2.5rem) !important;
+    }
     .btn:active,
     button:active,
     .seat:active,
